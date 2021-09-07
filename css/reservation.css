@@ -1,0 +1,91 @@
+
+h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+}
+
+form div.part {
+    width: 90%;
+    margin: 30px auto;
+    max-width: 700px;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #ececee;
+}
+
+
+
+.cards {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.cards .card {
+    width: 100%;
+    border-radius: 5px;
+    box-sizing: border-box;
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+}
+
+.card .details, .card .image, .card .more_details {
+    width: 50%;
+    display: block;
+    top: 50%;
+    transform: translate(0, -50%);
+    position: absolute;
+    height: 250px;
+}
+
+.card .image {
+    height: unset;
+    max-height: 350px;
+    left: 0;
+}
+
+.card .details {
+    right: 0;
+}
+
+.card .more_details {
+    left: -50%;
+}
+
+
+#_f1-p1 label {
+    display: inline-block;
+    /* text-align: center; */
+}
+
+#_f1-p1 .pickup_return select, #_f1-p1 .pickup_return input {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 5px;
+    border: none;
+    border: 2px solid #c5c5c5;
+    font-size: 14px;
+    height: 30px;
+    vertical-align: middle;
+    margin: 0;
+}
+
+#_f1-p1 .pickup_return select {
+    width: 40%;
+}
+
+#_f1-p1 .pickup_return input[type=date], #_f1-p1 .pickup_return input[type=time] {
+    width: 30%;
+}
+
+@media only screen and (max-width: 550px) {
+    #_f1-p1 .pickup_return select {
+        width: 100%;
+        border-bottom: 2px solid #c5c5c5;
+    }
+    #_f1-p1 .pickup_return input[type=date], #_f1-p1 input[type=time] {
+        width: 50%;
+        border-top: none;
+    }
+}
