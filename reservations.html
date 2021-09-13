@@ -36,13 +36,21 @@
                 <label>Pick up date <input type="date"></label>
                 <label>Pick up time <input type="time" value="09:00"></label> -->
                 <!-- <label>Pickup</label> -->
-                <select><option>- Pickup -</option><option>Dunedin Airport</option><option>Ricky's Rides Depo</option></select><input type="date"><input type="time" value="09:00">
+                <select id="pickupLocation">
+                    <option>- Pickup -</option>
+                    <option>Dunedin Airport</option>
+                    <option>Ricky's Rides Depo</option>
+                </select><input type="date" id="pickupDate"><input type="time" id="pickupTime" value="09:00">
                 <br>
                 <!-- <label>Return location <select><option>Return to same location</option><option>Dunedin Airport</option><option>Ricky's Rides Depo</option></select></label>
                 <label>Return date <input type="date"></label>
                 <label>Return time <input type="time" value="09:00"></label> -->
                 <!-- <label>Return</label> -->
-                <select><option>Return to same location</option><option>Dunedin Airport</option><option>Ricky's Rides Depo</option></select><input type="date"><input type="time" value="09:00">
+                <select id="returnLocation">
+                    <option>Return to same location</option>
+                    <option>Dunedin Airport</option>
+                    <option>Ricky's Rides Depo</option>
+                </select><input type="date" id="returnDate"><input type="time" id="returnTime" value="17:00">
             </div>
             <label for="age_range">Age</label>
             <select id="age_range">
@@ -60,9 +68,9 @@
 
         <div id="_f1-p2" class="part">
 
-            <div class="cards" id="cards">
+            <div class="cards" id="carCards">
 
-                <button type="button" class="card" data-name="Nissan Tiida" data-price="18">
+                <button type="button" class="carCard card" data-name="Nissan Tiida" data-price="18">
                     <img class="image" src="assets/images/car photos/nissan_tiida.jpeg">
                     <div class="details">
                         <span class="name">Nissan Tiida</span>
@@ -84,7 +92,7 @@
                     </div>
                 </button>
 
-                <button type="button" class="card" data-name="Suzuki Swift" data-price="18">
+                <button type="button" class="carCard card" data-name="Suzuki Swift" data-price="18">
                     <img class="image" id="" src="assets/images/car photos/suzuki_swift.jpg">
                     <div class="details">
                         <span class="name">Suzuki Swift</span>
@@ -106,7 +114,7 @@
                     </div>
                 </button>
 
-                <button type="button" class="card" data-name="Mazda 3" data-price="23">
+                <button type="button" class="carCard card" data-name="Mazda 3" data-price="23">
                     <img class="image" id="" src="assets/images/car photos/mazda_3.JPG">
                     <div class="details">
                         <span class="name">Mazda 3</span>
@@ -128,7 +136,7 @@
                     </div>
                 </button>
 
-                <button type="button" class="card" data-name="Holden Trax" data-price="41">
+                <button type="button" class="carCard card" data-name="Holden Trax" data-price="41">
                     <img class="image" id="" src="assets/images/car photos/Holden_Trax.jpg">
                     <div class="details">
                         <span class="name">Holden Trax</span>
@@ -150,7 +158,7 @@
                     </div>
                 </button>
 
-                <button type="button" class="card" data-name="Holden Captiva" data-price="52">
+                <button type="button" class="carCard card" data-name="Holden Captiva" data-price="52">
                     <img class="image" id="" src="assets/images/car photos/holden_captiva.jfif">
                     <div class="details">
                         <span class="name">Holden Captiva</span>
@@ -172,7 +180,7 @@
                     </div>
                 </button>
 
-                <button type="button" class="card" data-name="Toyota Estima" data-price="62">
+                <button type="button" class="carCard card" data-name="Toyota Estima" data-price="62">
                     <img class="image" id="" src="assets/images/car photos/toyota_estima.jpeg">
                     <div class="details">
                         <span class="name">Toyota Estima</span>
@@ -194,7 +202,7 @@
                     </div>
                 </button>
 
-                <button type="button" class="card" data-name="Nissan Camper Van" data-price="89">
+                <button type="button" class="carCard card" data-name="Nissan Camper Van" data-price="89">
                     <img class="image" id="" src="assets/images/car photos/nissan_caravan.jpeg">
                     <div class="details">
                         <span class="name">Nissan Camper Van</span>
@@ -222,14 +230,51 @@
 
 
         <div id="_f1-p3" class="part">
-            <label>First name <input type="text"></label><br>
-            <label>Last name <input type="text"></label><br>
-            <label>Date of Birth <input type="date"></label><br>
-            <label>Phone <input type="tel"></label><br>
-            <label>Email <input type="email"></label><br>
-            <label>Driver License <input type="text"></label><br>
+            <label>First name <input type="text" id="firstName"></label><br>
+            <label>Last name <input type="text" id="lastName"></label><br>
+            <label>Date of Birth <input type="date" id="DOB"></label><br>
+            <label>Mobile Phone <input type="tel" id="mobilePhone"></label><br>
+            <label>Email <input type="email" id="email"></label><br>
+            <label>Driver License <input type="text" id="driversLicense"></label><br>
+
+            <br>
+            <br>
+            <br>
+
+            <label><input type="checkbox"> I have read and agree to the <a href="#">terms and conditions</a></label>
+            <br>
+            <label><input type="checkbox"> I am at least 21 years of age</label>
+
+            <br>
+            <br>
+
+            <button type="button" id="_f1-submit">Complete Reservation</button>
         </div>
 
     </form>
+
+
+
+    <!-- Scripts -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC4W5FppmjY2AQRmwCvWm0TlN2jU1poxMM",
+            authDomain: "ricky-s-rides-2ec7f.firebaseapp.com",
+            projectId: "ricky-s-rides-2ec7f",
+            storageBucket: "ricky-s-rides-2ec7f.appspot.com",
+            messagingSenderId: "1070550686880",
+            appId: "1:1070550686880:web:14e203b9b056b380bbbdc5"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="js/reservations/v1.js"></script>
 </body>
 </html>
