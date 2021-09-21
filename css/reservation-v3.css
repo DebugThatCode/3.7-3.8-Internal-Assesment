@@ -1,0 +1,328 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+    --title_text: 'Oswald', sans-serif;
+    --body_text: 'Roboto', sans-serif;
+    --bg_main: #FF9900;
+    --text_main: #000000;
+    --bg_ac_1: #999999;
+    --text_ac_1: #000000;
+    --bg_ac_2: #cccccc;
+    --text_ac_2: #000000;
+    --bg_alt_1: #CC6633;
+    --text_alt_1: #000000;
+    --bg_alt_2: #771100;
+    --text_alt_2: #FFFFFF;
+}
+
+body {
+    font-family: var(--body_text);
+    background-image: url('../assets/images/bg-texture.jpg');
+    background-repeat: repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+    font-family: var(--title_text);
+}
+
+form div.part {
+    width: 90%;
+    margin: 30px auto;
+    max-width: 700px;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #ececee;
+}
+
+
+/* Part 1 */
+
+#_f1-p1 .input_container {
+    padding: 5px 5px 7px;
+    box-sizing: border-box;
+    display: inline-block;
+    position: relative;
+}
+
+#_f1-p1 .input_container .inline_validation {
+    color: red;
+    position: absolute;
+    bottom: -5px;
+    right: 7px;
+    font-size: 10px;
+}
+
+#_f1-p1 .input_container._1 {
+    width: 60%;
+}
+#_f1-p1 .input_container._2 {
+    width: 40%;
+}
+
+#_f1-p1 .input_container select, #_f1-p1 .input_container input {
+    width: 100%;
+    height: 35px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 5px;
+    border: none;
+    border-radius: 3px;
+}
+
+
+/* part 2 */
+
+.cards {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.cards .card {
+    width: 100%;
+    border-radius: 5px;
+    box-sizing: border-box;
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    margin: 5px 0;
+    transition: ease-in-out all 0.25s;
+}
+
+.card .details, .card .image, .card .more_details {
+    width: 50%;
+    display: block;
+    top: 50%;
+    transform: translate(0, -50%);
+    position: absolute;
+    height: 250px;
+}
+
+.card .image {
+    height: unset;
+    max-height: 350px;
+    left: 0;
+}
+
+.card .details {
+    right: 0;
+}
+.card .details span {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.card .details .name {
+    padding: 10px 5px 5px;
+    font-size: 24px;
+    font-family: var(--title_text);
+}
+
+.card .details .pricing {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: fit-content;
+    max-width: 100%;
+    height: fit-content;
+}
+
+.card .details .pricing span {
+    display: inline-block;
+    width: fit-content;
+}
+
+.card .details .pricing .total_price {
+    margin: 0 7px 5px 5px;
+    text-align: center;
+    padding: 5px 7px;
+    border-radius: 5px;
+    background-color: var(--bg_main);
+    color: #FFFFFF;
+}
+
+.cards .card[data-selected=true] {
+    /* keep expanded */
+    box-shadow: 0 0 5px 0 var(--bg_alt_1);
+}
+.cards .card[data-selected=false] {
+    /* Collapse card */
+    height: 50px;
+}
+
+.cards .card[data-selected=false] > .image {
+    display: none;
+}
+
+.cards .card[data-selected=false] > .details {
+    top: 0;
+    transform: none;
+    width: 100%;
+    height: 50px;
+}
+
+.cards .card[data-selected=false] > .details .name {
+    width: 60%;
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    left: 0;
+    padding: 5px;
+}
+
+.cards .card[data-selected=false] > .details .pricing {
+    width: 40%;
+    display: block;
+    position: absolute;
+    text-align: right;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: 0;
+    padding: 5px;
+}
+
+.cards .card[data-selected=false] > .details .pricing .total_price {
+    margin-right: 0;
+    margin-bottom: 0;
+}
+
+.cards .card[data-selected=false] > .details span:not(.name, .pricing) {
+    display: none;
+}
+.cards .card[data-selected=false] > .details .pricing span {
+    display: inline-block;
+}
+
+/* Part 3 */
+
+#_f1-p3 .input_container span {
+    display: inline-block;
+}
+
+/* Part 4 */
+
+#_f1-p4 .input_container {
+    width: 100%;
+    padding: 5px 5px 10px;
+    box-sizing: border-box;
+    display: inline-block;
+    position: relative;
+}
+
+#_f1-p4 .input_container label {
+    display: block;
+    margin: auto 6px 3px;
+}
+
+#_f1-p4 .input_container input, #_f1-p4 .input_container textarea {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: var(--body_text);
+    padding: 8px 10px;
+}
+
+#_f1-p4 .input_container textarea {
+    resize: vertical;
+}
+
+
+#_f1-p4 .input_container .inline_validation {
+    color: red;
+    position: absolute;
+    bottom: -5px;
+    right: 7px;
+    font-size: 10px;
+}
+
+
+/* Post Submition */
+
+#_f1-postSubmition p {
+    text-align: center;
+}
+
+#_f1-postSubmition p span {
+    display: inline-block;
+}
+
+form:not(.complete) > div.part#_f1-postSubmition {
+    display: none;
+}
+form.complete > div.part:not(#_f1-postSubmition) {
+    display: none;
+}
+
+/* overlay */
+
+form .overlay {
+    
+}
+
+
+
+input[type=checkbox] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    position: relative;
+    top: 10px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+    transition: all 0.15s ease-out 0s;
+    background: #cbd1d8;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 0.5rem;
+    outline: none;
+    position: relative;
+    z-index: 1000;
+}
+
+input[type=checkbox]:hover {
+    background: #9faab7;
+}
+
+input[type=checkbox]:checked {
+    background: var(--bg_main);
+}
+
+input[type=checkbox]:checked::before {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 6px;
+    content: '✔';
+    display: inline-block;
+    font-size: 24px;
+    text-align: center;
+    line-height: 20px;
+}
+
+input[type=checkbox]:checked::after {
+    background: var(--bg_main);
+    content: '';
+    display: block;
+    position: relative;
+    z-index: 100;
+}

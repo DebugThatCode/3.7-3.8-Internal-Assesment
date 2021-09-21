@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Reservations | Ricky's Rides</title>
+    <link rel="stylesheet" href="css/reservation-v3.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <style>
+        span {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav class="desktop">
+        <a href="index.html"><img src="assets/icon.svg" class="logo" alt="Ricky's Rides" title="Ricky's Rides"></a>
+        
+        <div class="links">
+            <a href="reservations-v3.html">Reservations</a>
+        </div>
+    </nav>
+
+
+
+    <form id="_f1">
+
+        <div id="_f1-header" class="part">
+            <h1>Online Reservations</h1>
+        </div>
+
+        <div id="_f1-p1" class="part">
+            <div class="input_container _1">
+                <select id="pickupLocation" required>
+                    <option data-valid="false">- Pickup -</option>
+                    <option data-valid="true">Dunedin Airport</option>
+                    <option data-valid="true">Ricky's Rides Depo</option>
+                </select>
+                <div class="inline_validation"></div>
+            </div><div class="input_container _2">
+                <input type="date" id="pickupDate" required>
+                <div class="inline_validation"></div>
+            </div>
+
+            <br>
+
+            <div class="input_container _1">
+                <select id="returnLocation">
+                    <option data-valid="true">Return to same location</option>
+                    <option data-valid="true">Dunedin Airport</option>
+                    <option data-valid="true">Ricky's Rides Depo</option>
+                </select>
+                <div class="inline_validation"></div>
+            </div><div class="input_container _2">
+                <input type="date" id="returnDate" required>
+                <div class="inline_validation"></div>
+            </div>
+        </div>
+
+        <div id="_f1-p2" class="part">
+
+            <div class="cards" id="carCards">
+
+                <button type="button" class="carCard card" data-name="Nissan Tiida" data-price="18">
+                    <img class="image" src="assets/images/car photos/nissan_tiida.jpeg">
+                    <div class="details">
+                        <span class="name">Nissan Tiida</span>
+                        <span class="seats">5 seats</span>
+                        <span class="type">Sedan</span>
+                        <span class="luggage_large"><i class="fas fa-suitcase"></i> 1</span>
+                        <span class="luggage_small"><i class="fas fa-briefcase"></i> 2</span>
+                        <span class="engine"> 1.3 - 2.0 L</span>
+                        <span class="economy">&plusmn; 7 L / 100 km</span>
+                        <span class="fuel">Petrol</span>
+                        <span class="transmission"><i class="fas fa-cogs"></i> Automatic</span>
+
+                        <div class="pricing">
+                            <span class="daily_price">$ 18.00 / day</span><span class="total_price">$ --.--</span>
+                        </div>
+                    </div>
+                </button>
+
+                <button type="button" class="carCard card" data-name="Suzuki Swift" data-price="18">
+                    <img class="image" id="" src="assets/images/car photos/suzuki_swift.jpg">
+                    <div class="details">
+                        <span class="name">Suzuki Swift</span>
+                        <span class="seats">5 seats</span>
+                        <span class="type">Hatchback</span>
+                        <span class="luggage_large"><i class="fas fa-suitcase"></i> 1</span>
+                        <span class="luggage_small"><i class="fas fa-briefcase"></i> 1</span>
+                        <span class="engine"> 1.2 - 1.4 L</span>
+                        <span class="economy">&plusmn; 6 L / 100 km</span>
+                        <span class="fuel">Petrol</span>
+                        <span class="transmission"><i class="fas fa-cogs"></i> Automatic</span>
+
+                        <div class="pricing">
+                            <span class="daily_price">$ 18.00 / day</span>
+                            <span class="total_price">$ --.--</span>
+                        </div>
+                    </div>
+                </button>
+
+                <button type="button" class="carCard card" data-name="Mazda 3" data-price="23">
+                    <img class="image" id="" src="assets/images/car photos/mazda_3.JPG">
+                    <div class="details">
+                        <span class="name">Mazda 3</span>
+                        <span class="seats">5 seats</span>
+                        <span class="type">Sedan</span>
+                        <span class="luggage_large"><i class="fas fa-suitcase"></i> 2</span>
+                        <span class="luggage_small"><i class="fas fa-briefcase"></i> 1</span>
+                        <span class="engine"> 1.6 - 2.0 L</span>
+                        <span class="economy">&plusmn; 6 L / 100 km</span>
+                        <span class="fuel">Petrol</span>
+                        <span class="transmission"><i class="fas fa-cogs"></i> Automatic</span>
+
+                        <div class="pricing">
+                            <span class="daily_price">$ 23.00 / day</span>
+                            <span class="total_price">$ --.--</span>
+                        </div>
+                    </div>
+                </button>
+
+                <button type="button" class="carCard card" data-name="Holden Trax" data-price="41">
+                    <img class="image" id="" src="assets/images/car photos/Holden_Trax.jpg">
+                    <div class="details">
+                        <span class="name">Holden Trax</span>
+                        <span class="seats">5 seats</span>
+                        <span class="type">Compact SUV</span>
+                        <span class="luggage_large"><i class="fas fa-suitcase"></i> 1</span>
+                        <span class="luggage_small"><i class="fas fa-briefcase"></i> 2</span>
+                        <span class="engine"> 1.4 - 1.8 L</span>
+                        <span class="economy">&plusmn; 6.9 L / 100 km</span>
+                        <span class="fuel">Petrol</span>
+                        <span class="transmission"><i class="fas fa-cogs"></i> Automatic</span>
+
+                        <div class="pricing">
+                            <span class="daily_price">$ 41.00 / day</span>
+                            <span class="total_price">$ --.--</span>
+                        </div>
+                    </div>
+                </button>
+
+                <button type="button" class="carCard card" data-name="Holden Captiva" data-price="52">
+                    <img class="image" id="" src="assets/images/car photos/holden_captiva.jfif">
+                    <div class="details">
+                        <span class="name">Holden Captiva</span>
+                        <span class="seats">5 seats</span>
+                        <span class="type">SUV</span>
+                        <span class="luggage_large"><i class="fas fa-suitcase"></i> 3</span>
+                        <span class="luggage_small"><i class="fas fa-briefcase"></i> 1</span>
+                        <span class="engine"> 3 L</span>
+                        <span class="economy">&plusmn; 9.2 L / 100 km</span>
+                        <span class="fuel">Petrol</span>
+                        <span class="transmission"><i class="fas fa-cogs"></i> Automatic</span>
+
+                        <div class="pricing">
+                            <span class="daily_price">$ 52.00 / day</span>
+                            <span class="total_price">$ --.--</span>
+                        </div>
+                    </div>
+                </button>
+
+                <button type="button" class="carCard card" data-name="Toyota Estima" data-price="62">
+                    <img class="image" id="" src="assets/images/car photos/toyota_estima.jpeg">
+                    <div class="details">
+                        <span class="name">Toyota Estima</span>
+                        <span class="seats">5 seats</span>
+                        <span class="type">SUV</span>
+                        <span class="luggage_large"><i class="fas fa-suitcase"></i> 2</span>
+                        <span class="luggage_small"><i class="fas fa-briefcase"></i> 1</span>
+                        <span class="engine"> 1.6 - 2.0 L</span>
+                        <span class="economy">&plusmn; 6 L / 100 km</span>
+                        <span class="fuel">Petrol</span>
+                        <span class="transmission"><i class="fas fa-cogs"></i> Automatic</span>
+
+                        <div class="pricing">
+                            <span class="daily_price">$ 62.00 / day</span>
+                            <span class="total_price">$ --.--</span>
+                        </div>
+                    </div>
+                </button>
+
+                <button type="button" class="carCard card" data-name="Nissan Camper Van" data-price="89">
+                    <img class="image" id="" src="assets/images/car photos/nissan_caravan.jpeg">
+                    <div class="details">
+                        <span class="name">Nissan Camper Van</span>
+                        <span class="seats">10 seats</span>
+                        <span class="type">Minivan</span>
+                        <span class="luggage_large"><i class="fas fa-suitcase"></i> 2</span>
+                        <span class="luggage_small"><i class="fas fa-briefcase"></i> 4</span>
+                        <span class="engine"> 2.0 L</span>
+                        <span class="economy">&plusmn; 10 L / 100 km</span>
+                        <span class="fuel">Petrol</span>
+                        <span class="transmission"><i class="fas fa-cogs"></i> Automatic</span>
+
+                        <div class="pricing">
+                            <span class="daily_price">$ 89.00 / day</span>
+                            <span class="total_price">$ --.--</span>
+                        </div>
+                    </div>
+                </button>
+
+            </div>
+
+        </div>
+
+        <div id="_f1-p3" class="part">
+            <h3>Extras</h3>
+
+            <div class="input_container">
+                <input type="checkbox" class="extras_select" name="Snow Chains" data-price="60"> Snow Chains <span class="price">$ 60.00</span>
+            </div>
+            <div class="input_container">
+                <input type="checkbox" class="extras_select" name="Roof Racks" data-price="90"> Roof Racks <span class="price">$ 90.00</span>
+            </div>
+            <div class="input_container">
+                <input type="checkbox" class="extras_select" name="Bike Racks" data-price="120"> Bike Rack <span class="price">$ 120.00</span>
+            </div>
+            <div class="input_container">
+                <input type="checkbox" class="extras_select" name="GPS" data-price="35"> GPS <span class="price">$ 35.00</span>
+            </div>
+            <div class="input_container">
+                <input type="checkbox" class="extras_select" name="Child Booster Seat" data-price="50"> Child Booster Seat <span class="price">$ 50.00</span>
+            </div>
+
+            <br>
+        </div>
+
+        <div id="_f1-p4" class="part">
+            <div class="input_container">
+                <label>First name</label>
+                <input type="text" id="firstName" required pattern="[a-zA-Z]{2,30}">
+                <div class="inline_validation"></div>
+            </div>
+            <div class="input_container">
+                <label>Last name</label>
+                <input type="text" id="lastName" required pattern="[a-zA-Z]{2,30}">
+                <div class="inline_validation"></div>
+            </div>
+            <div class="input_container">
+                <label>Date of Birth</label>
+                <input type="date" id="DOB" required>
+                <div class="inline_validation"></div>
+            </div>
+            <div class="input_container">
+                <label>Mobile Phone</label>
+                <input type="tel" id="mobilePhone" required pattern="02[0126789]\d{6,8}">
+                <div class="inline_validation"></div>
+            </div>
+            <div class="input_container">
+                <label>Email</label>
+                <input type="email" id="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                <div class="inline_validation"></div>
+            </div>
+            <div class="input_container">
+                <label>Driver License</label>
+                <input type="text" id="driversLicense" required pattern="[A-Z]{2,2}[0-9]{6,6}">
+                <div class="inline_validation"></div>
+            </div>
+            <br>
+
+            <div class="input_container">
+                <label>Extra Comments</label>
+                <textarea id="comments" maxlength="300"></textarea>
+                <div class="inline_validation">Max 300 Characters</div>
+            </div>
+
+            <br>
+            <br>
+            <br>
+
+            <label><input type="checkbox" id="_f1-declaration-termsConditions"> I have read and agree to the <a href="#">Terms and Conditions</a></label>
+            <br>
+            <label><input type="checkbox" id="_f1-declaration-age"> I am at least 25 years of age</label>
+
+            <br>
+            <br>
+
+            <button type="button" id="_f1-submit" disabled>Confirm Booking</button>
+        </div>
+
+        <div id="_f1-postSubmition" class="part">
+            <h3>Booking Complete</h3>
+
+            <button type="button">Veiw Details</button>
+
+            <p>This page will refrech in <span id="_f1-refreshCountDown">30</span> second<span id="_f1-refreshCountDown-s">s</span></p>
+        </div>
+
+        <div id="_f1-overlay" class="overlay">
+            <button type="button">Close</button>
+            <table>
+                <tr>
+                    <td>Pickup Date</td><td id="overlay-pickupDate">#</td>
+                </tr>
+                <tr>
+                    <td>Pickup Location</td><td id="overlay-pickupLocation">#</td>
+                </tr>
+                <tr>
+                    <td>Return Date</td><td id="overlay-returnDate">#</td>
+                </tr>
+                <tr>
+                    <td>Return Location</td><td id="overlay-returnLocation">Return to same location</td>
+                </tr>
+                <tr>
+                    <td>Rent Period</td><td id="overlay-rentPeriod">#</td>
+                </tr>
+                <tr>
+                    <td>Vehicle</td><td id="overlay-vehicle">#</td>
+                </tr>
+                <tr>
+                    <td>Daily Price</td><td id="overlay-dailyPrice">#</td>
+                </tr>
+                <tr>
+                    <td>Total Vehicle Price</td><td id="overlay-totalVehiclePrice">#</td>
+                </tr>
+                <tr>
+                    <td>Extras</td><td id="overlay-extras"></td>
+                </tr>
+                <tr>
+                    <td>Name</td><td id="overlay-name">#</td>
+                </tr>
+                <tr>
+                    <td>DOB</td><td id="overlay-DOB">#</td>
+                </tr>
+                <tr>
+                    <td>Phone</td><td id="overlay-phone">#</td>
+                </tr>
+                <tr>
+                    <td>Email</td><td id="overlay-email">#</td>
+                </tr>
+                <tr>
+                    <td>Drivers License</td><td id="overlay-driverLicense">#</td>
+                </tr>
+                <tr>
+                    <td>Total Price</td><td id="overlay-totalPrice">#</td>
+                </tr>
+            </table>
+        </div>
+
+    </form>
+
+
+
+    <!-- Scripts -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC4W5FppmjY2AQRmwCvWm0TlN2jU1poxMM",
+            authDomain: "ricky-s-rides-2ec7f.firebaseapp.com",
+            projectId: "ricky-s-rides-2ec7f",
+            storageBucket: "ricky-s-rides-2ec7f.appspot.com",
+            messagingSenderId: "1070550686880",
+            appId: "1:1070550686880:web:14e203b9b056b380bbbdc5"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="js/reservations/v3.js"></script>
+</body>
+</html>
