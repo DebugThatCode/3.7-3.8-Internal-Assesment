@@ -10,7 +10,7 @@ let reservationDetails = {
     // Location and time
     pickupLocation: null,
     pickupDate: null,
-    returnLocation: 0, // Default to return to same
+    returnLocation: 'Return to same location', // Default to return to same
     returnDate: null,
     rentPeriod: null,
     // Vehicle
@@ -26,7 +26,9 @@ let reservationDetails = {
     DOB: null,
     mobilePhone: null,
     email: null,
-    driversLicense: null
+    driversLicense: null,
+    // Total
+    totalPrice: 0
 }
 
 
@@ -147,57 +149,77 @@ function inlineValidate(element, message, validationType) {
 }
 
 
+// Calculations
+function calculateCarCosts() {
+    reservationDetails['vehicleTotalPrice'] = reservationDetails['dailyPrice'] * reservationDetails['rentPeriod'];
+    get('overlay-totalVehiclePrice').innerHTML = '$ ' + reservationDetails['vehicleTotalPrice'].toFixed(2);
+    reservationDetails['totalPrice'] = reservationDetails['vehicleTotalPrice'] + reservationDetails['extrasTotalPrice'];
+    get('overlay-totalPrice').innerHTML = '$ ' + reservationDetails['totalPrice'].toFixed(2);
+}
+
+
 // Inputs
 const allInputs = {
     'pickupLocation': {
         'tagName': 'id',
-        'type': 'select'
+        'type': 'select',
+        'message': 'Please select a location'
     },
     'pickupDate': {
         'tagName': 'id',
-        'type': 'date'
+        'type': 'date',
+        'message': 'Invalid date'
     },
     'returnLocation': {
         'tagName': 'id',
-        'type': 'select'
+        'type': 'select',
+        'message': ''
     },
     'returnDate': {
         'tagName': 'id',
-        'type': 'date'
+        'type': 'date',
+        'message': 'Invalid date (max 21 days)'
     },
     'carCards': {
         'tagName': 'class',
-        'type': 'buttonSelect'
+        'type': 'buttonSelect',
+        'message': ''
     },
     'firstName': {
         'tagName': 'id',
-        'type': 'pattern'
+        'type': 'pattern',
+        'message': 'Invalid first name (2-30 characters)'
     },
     'lastName': {
         'tagName': 'id',
-        'type': 'pattern'
+        'type': 'pattern',
+        'message': 'Invalid last name (2-30 characters)'
     },
     'DOB': {
         'tagName': 'id',
-        'type': 'date'
+        'type': 'date',
+        'message': 'You must be at least 25 to rent a car (and less than 80)'
     },
     'mobilePhone': {
         'tagName': 'id',
-        'type': 'pattern'
+        'type': 'pattern',
+        'message': 'Invalid NZ mobile phone number'
     },
     'email': {
         'tagName': 'id',
-        'type': 'pattern'
+        'type': 'pattern',
+        'message': 'Invalid email address'
     },
     'driversLicense': {
         'tagName': 'id',
-        'type': 'pattern'
+        'type': 'pattern',
+        'message': 'Invalid drivers license (<span style="font-family:monospace;display:inline;">XX######</span>)'
     }
 };
 
 // Pickup location
 get('pickupLocation').addEventListener('input', function () {
-    if (inlineValidate(this, 'Invalid Location', 'select')) {
+    if (inlineValidate(this, allInputs[this.id]['message'], 'select')) {
         let selected = this.selectedIndex;
         let locations = [
             null,
@@ -206,12 +228,14 @@ get('pickupLocation').addEventListener('input', function () {
         ]
         reservationDetails['pickupLocation'] = locations[selected];
         get('overlay-pickupLocation').innerHTML = locations[selected];
+    } else {
+        get('overlay-pickupLocation').innerHTML = '<span class="invalid_entry">Please Select</span>'
     }
 });
 // Pickup date
 get('pickupDate').setAttribute('min', todayHTML);
 get('pickupDate').addEventListener('input', function () {
-    if (inlineValidate(this, 'Invalid date', 'date')) {
+    if (inlineValidate(this, allInputs[this.id]['message'], 'date')) {
         reservationDetails['pickupDate'] = this.value;
         get('overlay-pickupDate').innerHTML = this.value;
         let pickupJS = getJsDate(this.value);
@@ -222,6 +246,8 @@ get('pickupDate').addEventListener('input', function () {
         returnMax.setTime(pickupJS.getTime() + (21 * 24 * 60 * 60 * 1000));
         get('returnDate').max = getHTMLDate(returnMax);
         get('returnDate').value = '';
+    } else {
+        get('overlay-returnDate').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'
     }
     
 });
@@ -240,7 +266,7 @@ get('returnLocation').addEventListener('input', function () {
 });
 // Return date
 get('returnDate').addEventListener('input', function () {
-    if (inlineValidate(this, 'Invalid date (max 21 days)', 'date')) {
+    if (inlineValidate(this, allInputs[this.id]['message'], 'date')) {
         reservationDetails['returnDate'] = this.value;
         get('overlay-returnDate').innerHTML = this.value;
         // Calculate car total prices to display
@@ -248,13 +274,17 @@ get('returnDate').addEventListener('input', function () {
         let RD = getJsDate(this.value);
         let period = Math.floor((RD.getTime() - PD.getTime()) / (24 * 60 * 60 * 1000));
         reservationDetails['rentPeriod'] = period;
-        get('overlay-rentPeriod').innerHTML = period;
+        get('overlay-rentPeriod').innerHTML = period + ' days';
+        calculateCarCosts();
+
         let cards = getClass('carCard');
         for (let i = 0; i < cards.length; i++) {
             let dailyPrice = Number(cards[i].getAttribute('data-price'));
             cards[i].children[1].children[9].children[1].innerHTML = '$ ' + (dailyPrice * period).toFixed(2);
         }
 
+    } else {
+        get('overlay-returnDate').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'
     }
 });
 
@@ -267,9 +297,8 @@ for (let i = 0; i < carCards.length; i++) {
             reservationDetails['vehicle'] = carCards[i].getAttribute('data-name');
             get('overlay-vehicle').innerHTML = reservationDetails['vehicle'];
             reservationDetails['dailyPrice'] = Number(carCards[i].getAttribute('data-price'));
-            get('overlay-dailyPrice').innerHTML = reservationDetails['dailyPrice'];
-            reservationDetails['vehicleTotalPrice'] = reservationDetails['dailyPrice'] * reservationDetails['rentPeriod'];
-            get('overlay-totalVehiclePrice').innerHTML = reservationDetails['vehicleTotalPrice'];
+            get('overlay-dailyPrice').innerHTML = '$ ' + reservationDetails['dailyPrice'].toFixed(2);
+            calculateCarCosts()
         }
     });
 }
@@ -277,16 +306,20 @@ for (let i = 0; i < carCards.length; i++) {
 
 // First name
 get('firstName').addEventListener('input', function () {
-    if (inlineValidate(this, 'Invalid first name (2-30 characters)', 'pattern')) {
+    if (inlineValidate(this, allInputs[this.id]['message'], 'pattern')) {
         reservationDetails['firstName'] = this.value;
-        get('overlay-name').innerHTML = reservationDetails['firstName'] + ' ' + reservationDetails['lastName'];
+        get('overlay-firstName').innerHTML = this.value;
+    } else {
+        get('overlay-firstName').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'
     }
 });
 // Last Name
 get('lastName').addEventListener('input', function () {
-    if (inlineValidate(this, 'Invalid last name (2-30 characters)', 'pattern')) {
+    if (inlineValidate(this, allInputs[this.id]['message'], 'pattern')) {
         reservationDetails['lastName'] = this.value;
-        get('overlay-name').innerHTML = reservationDetails['firstName'] + ' ' + reservationDetails['lastName'];
+        get('overlay-lastName').innerHTML = this.value;
+    } else {
+        get('overlay-lastName').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'
     }
 });
 // DOB
@@ -298,30 +331,38 @@ DOBMax.setTime(todayJS.getTime() - (80 * 365 * 24 * 60 * 60 * 1000));
 get('DOB').min = getHTMLDate(DOBMax);
 get('DOB').addEventListener('input', function () {
     // reservationDetails['DOB'] = this.value;
-    if (inlineValidate(this, 'You must be at least 25 to rent a car (and less than 80)', 'date')) {
+    if (inlineValidate(this, allInputs[this.id]['message'], 'date')) {
         reservationDetails['DOB'] = this.value;
         get('overlay-DOB').innerHTML = reservationDetails['DOB'];
+    } else {
+        get('overlay-DOB').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'
     }
 });
 // Mobile Phone
 get('mobilePhone').addEventListener('input', function () {
-    if (inlineValidate(this, 'Invalid mobile phone number', 'pattern')) {
+    if (inlineValidate(this, allInputs[this.id]['message'], 'pattern')) {
         reservationDetails['mobilePhone'] = this.value;
         get('overlay-phone').innerHTML = this.value;
+    } else {
+        get('overlay-phone').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'
     }
 });
 // Email
 get('email').addEventListener('input', function () {
-    if (inlineValidate(this, 'Invalid email address', 'pattern')) {
+    if (inlineValidate(this, allInputs[this.id]['message'], 'pattern')) {
         reservationDetails['email'] = this.value;
         get('overlay-email').innerHTML = this.value;
+    } else {
+        get('overlay-email').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'
     }
 });
 // Drivers license
 get('driversLicense').addEventListener('input', function () {
-    if (inlineValidate(this, 'Invalid drivers license (<span style="font-family:monospace;display:inline;">XX######</span>)', 'pattern')) {
+    if (inlineValidate(this, allInputs[this.id]['message'], 'pattern')) {
         reservationDetails['driversLicense'] = this.value;
         get('overlay-driverLicense').innerHTML = this.value;
+    } else {
+        get('overlay-driverLicense').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'
     }
 });
 
@@ -367,13 +408,13 @@ get('_f1-submit').addEventListener('click', function () {
     for (let i = 0; i < allInputNames.length; i++) {
         if (allInputs[allInputNames[i]]['tagName'] == 'id') {
             let element = get(allInputNames[i]);
-            if (!inlineValidate(element, 'Invalid', allInputs[allInputNames[i]]['type'])) {
+            if (!inlineValidate(element, allInputs[allInputNames[i]]['message'], allInputs[allInputNames[i]]['type'])) {
                 valid = false;
             }
         } else {
             let elements = getClass(allInputNames[i]);
             for (let a = 0; a < elements.length; a++) {
-                if (!inlineValidate(elements[a], 'Invalid', allInputs[allInputNames[i]]['type'])) {
+                if (!inlineValidate(elements[a], allInputs[allInputNames[i]]['message'], allInputs[allInputNames[i]]['type'])) {
                     valid = false;
                 }
             }
@@ -419,4 +460,17 @@ function countDown(timeRemaining = 1, sSpan, displaySpan) {
     setTimeout(function() {
         countDown(timeRemaining - 1, sSpan, displaySpan);
     }, 1000);
+}
+
+
+// Overlay 
+get('_f1-overlay-close').addEventListener('click', function () {
+    get('_f1-overlay').style.display = 'none';
+});
+
+let openButtons = getClass('overlay-open');
+for (let i = 0; i < openButtons.length; i++) {
+    openButtons[i].addEventListener('click', function () {
+        get('_f1-overlay').style.display = 'block';
+    })
 }

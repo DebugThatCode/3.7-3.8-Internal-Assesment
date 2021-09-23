@@ -7,7 +7,7 @@
     --bg_main: #FF9900;
     --text_main: #000000;
     --bg_ac_1: #999999;
-    --text_ac_1: #000000;
+    --text_ac_1: #fff;
     --bg_ac_2: #cccccc;
     --text_ac_2: #000000;
     --bg_alt_1: #CC6633;
@@ -268,9 +268,82 @@ form.complete > div.part:not(#_f1-postSubmition) {
 /* overlay */
 
 form .overlay {
-    
+    display: none; /* Default is closed (none) */
+    position: fixed;
+    width: 90%;
+    max-width: 500px;
+    height: 90vh;
+    max-height: 900px;
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 15px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--bg_ac_1);
+    color: var(--text_ac_1);
+}
+form .overlay .close {
+    float: right;
+    padding: 15px;
+    top: 15px;
+    right: 15px;
+    position: absolute;
+    border: none;
+    background: none;
 }
 
+.overlay-open {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--bg_main);
+    color: #000;
+}
+
+form .overlay .close i {
+    position: absolute;
+    font-size: 20px;
+    color: var(--text_ac_1);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+form .overlay table {
+    max-width: 100%;
+    width: fit-content;
+    position: absolute;
+    max-height: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-collapse: collapse;
+}
+
+form .overlay table tr td {
+    padding: 10px 5px;
+    border-top: 2px solid #ececee99;
+    border-bottom: 2px solid #ececee99;
+}
+
+form .overlay table tr td:nth-child(1) {
+    text-align: left;
+}
+form .overlay table tr td:nth-child(2) {
+    text-align: right;
+}
+
+form .overlay span.invalid_entry {
+    display: inline-block;
+    padding: 2px 4px;
+    background-color: #ff000099;
+    color: #fff;
+}
 
 
 input[type=checkbox] {

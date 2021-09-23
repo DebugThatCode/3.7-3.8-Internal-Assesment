@@ -228,6 +228,9 @@
         </div>
 
         <div id="_f1-p4" class="part">
+
+            <button type="button" class="overlay-open">Booking Summary</button>
+
             <div class="input_container">
                 <label>First name</label>
                 <input type="text" id="firstName" required pattern="[a-zA-Z]{2,30}">
@@ -283,58 +286,61 @@
         <div id="_f1-postSubmition" class="part">
             <h3>Booking Complete</h3>
 
-            <button type="button">Veiw Details</button>
+            <button type="button" class="overlay-open">Veiw Details</button>
 
             <p>This page will refrech in <span id="_f1-refreshCountDown">30</span> second<span id="_f1-refreshCountDown-s">s</span></p>
         </div>
 
         <div id="_f1-overlay" class="overlay">
-            <button type="button">Close</button>
+            <button type="button" id="_f1-overlay-close" class="close"><i class="fas fa-times"></i></button>
             <table>
                 <tr>
-                    <td>Pickup Date</td><td id="overlay-pickupDate">#</td>
+                    <td>Pickup Date</td><td id="overlay-pickupDate"></td>
                 </tr>
                 <tr>
-                    <td>Pickup Location</td><td id="overlay-pickupLocation">#</td>
+                    <td>Pickup Location</td><td id="overlay-pickupLocation"><span class="invalid_entry">Please Select</span></td>
                 </tr>
                 <tr>
-                    <td>Return Date</td><td id="overlay-returnDate">#</td>
+                    <td>Return Date</td><td id="overlay-returnDate"></td>
                 </tr>
                 <tr>
                     <td>Return Location</td><td id="overlay-returnLocation">Return to same location</td>
                 </tr>
                 <tr>
-                    <td>Rent Period</td><td id="overlay-rentPeriod">#</td>
+                    <td>Rent Period</td><td id="overlay-rentPeriod"></td>
                 </tr>
                 <tr>
-                    <td>Vehicle</td><td id="overlay-vehicle">#</td>
+                    <td>Vehicle</td><td id="overlay-vehicle"></td>
                 </tr>
                 <tr>
-                    <td>Daily Price</td><td id="overlay-dailyPrice">#</td>
+                    <td>Daily Price</td><td id="overlay-dailyPrice"></td>
                 </tr>
                 <tr>
-                    <td>Total Vehicle Price</td><td id="overlay-totalVehiclePrice">#</td>
+                    <td>Total Vehicle Price</td><td id="overlay-totalVehiclePrice"></td>
                 </tr>
                 <tr>
                     <td>Extras</td><td id="overlay-extras"></td>
                 </tr>
                 <tr>
-                    <td>Name</td><td id="overlay-name">#</td>
+                    <td>First Name</td><td id="overlay-firstName"></td>
                 </tr>
                 <tr>
-                    <td>DOB</td><td id="overlay-DOB">#</td>
+                    <td>Last Name</td><td id="overlay-lastName"></td>
                 </tr>
                 <tr>
-                    <td>Phone</td><td id="overlay-phone">#</td>
+                    <td>DOB</td><td id="overlay-DOB"></td>
                 </tr>
                 <tr>
-                    <td>Email</td><td id="overlay-email">#</td>
+                    <td>Phone</td><td id="overlay-phone"></td>
                 </tr>
                 <tr>
-                    <td>Drivers License</td><td id="overlay-driverLicense">#</td>
+                    <td>Email</td><td id="overlay-email"></td>
                 </tr>
                 <tr>
-                    <td>Total Price</td><td id="overlay-totalPrice">#</td>
+                    <td>Drivers License</td><td id="overlay-driverLicense"></td>
+                </tr>
+                <tr>
+                    <td>Total Price</td><td id="overlay-totalPrice"></td>
                 </tr>
             </table>
         </div>
