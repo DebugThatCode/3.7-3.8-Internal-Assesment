@@ -29,7 +29,7 @@ let reservationDetails = {
     driversLicense: null,
     // Total
     totalPrice: 0
-}
+};
 
 
 // Set current date
@@ -39,7 +39,7 @@ const todayHTML = getHTMLDate(todayJS);
 
 function getJsDate(HTMLDate) {
     let dateObject = new Date();
-    let dateSplit = HTMLDate.split('-')
+    let dateSplit = HTMLDate.split('-');
     dateObject.setFullYear(dateSplit[0]);
     dateObject.setMonth(dateSplit[1]);
     dateObject.setMonth(dateObject.getMonth() - 1);
@@ -66,7 +66,7 @@ function getHTMLDate(dateObject) {
 }
 
 function get(id) {
-    return document.getElementById(id)
+    return document.getElementById(id);
 }
 function getClass(name) {
     return document.getElementsByClassName(name);
@@ -85,7 +85,7 @@ function validate(element, validationType) {
     } else if (validationType == 'date') {
         if (element.getAttributeNames().includes('required')) {
             if (element.value == '') {
-                return false
+                return false;
             } else {
                 return element.checkValidity();
             }
@@ -98,25 +98,33 @@ function validate(element, validationType) {
         if (selectedOption.getAttribute('data-valid') == 'true') {
             return true;
         } else {
-            return false
+            return false;
         }
 
     } else if (validationType == 'buttonSelect') {
+        let name;
+        try {
+            name = element.getAttribute('data-name');
+        } catch {
+            name = 'false';
+            return false;
+        }
         let selected;
         try {
-            selected = element.getAttribute('data-name');
+            selected = element.getAttribute('data-selected');
         } catch {
-            selected = 'false';
+            return false;
         }
+
         let parent = element.parentElement;
         for (let i = 0; i < parent.children.length; i++) {
-            if (parent.children[i].getAttribute('data-name') == selected) {
-                parent.children[i].setAttribute('data-selected', 'true');
+            if (parent.children[i].getAttribute('data-name') == name) {
+                // parent.children[i].setAttribute('data-selected', 'true');
             } else {
                 parent.children[i].setAttribute('data-selected', 'false');
             }
         }
-        return true
+        return true;
     } else {
         return false;
     }
@@ -143,9 +151,8 @@ function inlineMessage(element, active, message) {
 }
 
 function inlineValidate(element, message, validationType) {
-    let validity = validate(element, validationType);
-    inlineMessage(element, !validity, message)
-    return validity
+    inlineMessage(element, !validate(element, validationType), message);
+    return validate(element, validationType);
 }
 
 
@@ -181,7 +188,7 @@ const allInputs = {
         'message': 'Invalid date (max 21 days)'
     },
     'carCards': {
-        'tagName': 'class',
+        'tagName': 'list',
         'type': 'buttonSelect',
         'message': ''
     },
@@ -229,7 +236,7 @@ get('pickupLocation').addEventListener('input', function () {
         reservationDetails['pickupLocation'] = locations[selected];
         get('overlay-pickupLocation').innerHTML = locations[selected];
     } else {
-        get('overlay-pickupLocation').innerHTML = '<span class="invalid_entry">Please Select</span>'
+        get('overlay-pickupLocation').innerHTML = '<span class="invalid_entry">Please Select</span>';
     }
 });
 // Pickup date
@@ -246,8 +253,9 @@ get('pickupDate').addEventListener('input', function () {
         returnMax.setTime(pickupJS.getTime() + (21 * 24 * 60 * 60 * 1000));
         get('returnDate').max = getHTMLDate(returnMax);
         get('returnDate').value = '';
+        get('returnDate').removeAttribute('disabled');
     } else {
-        get('overlay-returnDate').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'
+        get('overlay-returnDate').innerHTML = '<span class="invalid_entry">' + this.value + '</span>';
     }
     
 });
@@ -260,7 +268,7 @@ get('returnLocation').addEventListener('input', function () {
         'Return to same location',
         'Dunedin Airport',
         'Ricky\'s Rides Depo' 
-    ]
+    ];
     reservationDetails['returnLocation'] = locations[selected];
     get('overlay-returnLocation').innerHTML = locations[selected];
 });
@@ -284,7 +292,7 @@ get('returnDate').addEventListener('input', function () {
         }
 
     } else {
-        get('overlay-returnDate').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'
+        get('overlay-returnDate').innerHTML = '<span class="invalid_entry">' + this.value + '</span>';
     }
 });
 
@@ -293,13 +301,41 @@ get('returnDate').addEventListener('input', function () {
 let carCards = getClass('carCard');
 for (let i = 0; i < carCards.length; i++) {
     carCards[i].addEventListener('click', function () {
+        carCards[i].setAttribute('data-selected', 'true');
         if (validate(carCards[i], 'buttonSelect')) {
+            carCards[i].parentElement.setAttribute('data-valid', 'true');
             reservationDetails['vehicle'] = carCards[i].getAttribute('data-name');
             get('overlay-vehicle').innerHTML = reservationDetails['vehicle'];
             reservationDetails['dailyPrice'] = Number(carCards[i].getAttribute('data-price'));
             get('overlay-dailyPrice').innerHTML = '$ ' + reservationDetails['dailyPrice'].toFixed(2);
-            calculateCarCosts()
+            calculateCarCosts();
+            if (reservationDetails.pickupDate == null) {
+                inlineMessage(get('pickupDate'), true, 'Please enter a date to calculate price')
+                inlineMessage(get('returnDate'), true, 'Please enter a date to calculate price')
+            }
         }
+    });
+}
+
+
+// Extras options
+
+let extras = getClass('extras_select');
+for (let i = 0; i < extras.length; i++) {
+    extras[i].addEventListener('input', function () {
+        let selected = [];
+        let totalExtraPrice = 0;
+        for (let a = 0; a < extras.length; a++) {
+            if (extras[a].checked) {
+                selected.push(extras[a].getAttribute('data-name'));
+                totalExtraPrice += Number(extras[a].getAttribute('data-price'));
+            }
+        }
+        get('overlay-extras').innerHTML = selected.join('<br>');
+        reservationDetails['extras'] = selected.join(', ');
+        get('overlay-extrasTotalPrice').innerHTML = '$ ' + totalExtraPrice.toFixed(2);
+        reservationDetails['extrasTotalPrice'] = totalExtraPrice;
+        calculateCarCosts();
     });
 }
 
@@ -310,7 +346,7 @@ get('firstName').addEventListener('input', function () {
         reservationDetails['firstName'] = this.value;
         get('overlay-firstName').innerHTML = this.value;
     } else {
-        get('overlay-firstName').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'
+        get('overlay-firstName').innerHTML = '<span class="invalid_entry">' + this.value + '</span>';
     }
 });
 // Last Name
@@ -319,7 +355,7 @@ get('lastName').addEventListener('input', function () {
         reservationDetails['lastName'] = this.value;
         get('overlay-lastName').innerHTML = this.value;
     } else {
-        get('overlay-lastName').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'
+        get('overlay-lastName').innerHTML = '<span class="invalid_entry">' + this.value + '</span>';
     }
 });
 // DOB
@@ -335,7 +371,7 @@ get('DOB').addEventListener('input', function () {
         reservationDetails['DOB'] = this.value;
         get('overlay-DOB').innerHTML = reservationDetails['DOB'];
     } else {
-        get('overlay-DOB').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'
+        get('overlay-DOB').innerHTML = '<span class="invalid_entry">' + this.value + '</span>';
     }
 });
 // Mobile Phone
@@ -344,7 +380,7 @@ get('mobilePhone').addEventListener('input', function () {
         reservationDetails['mobilePhone'] = this.value;
         get('overlay-phone').innerHTML = this.value;
     } else {
-        get('overlay-phone').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'
+        get('overlay-phone').innerHTML = '<span class="invalid_entry">' + this.value + '</span>';
     }
 });
 // Email
@@ -353,7 +389,7 @@ get('email').addEventListener('input', function () {
         reservationDetails['email'] = this.value;
         get('overlay-email').innerHTML = this.value;
     } else {
-        get('overlay-email').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'
+        get('overlay-email').innerHTML = '<span class="invalid_entry">' + this.value + '</span>';
     }
 });
 // Drivers license
@@ -362,7 +398,7 @@ get('driversLicense').addEventListener('input', function () {
         reservationDetails['driversLicense'] = this.value;
         get('overlay-driverLicense').innerHTML = this.value;
     } else {
-        get('overlay-driverLicense').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'
+        get('overlay-driverLicense').innerHTML = '<span class="invalid_entry">' + this.value + '</span>';
     }
 });
 
@@ -370,7 +406,7 @@ get('driversLicense').addEventListener('input', function () {
 let declaration = {
     'termsConditions': false,
     'age': false
-}
+};
 get('_f1-declaration-termsConditions').addEventListener('input', function () {
     if (this.checked) {
         declaration['termsConditions'] = true;
@@ -411,11 +447,13 @@ get('_f1-submit').addEventListener('click', function () {
             if (!inlineValidate(element, allInputs[allInputNames[i]]['message'], allInputs[allInputNames[i]]['type'])) {
                 valid = false;
             }
-        } else {
-            let elements = getClass(allInputNames[i]);
+        } else if (allInputs[allInputNames[i]]['tagName'] == 'list') {
+            let element = get(allInputNames[i]);
+            let elements = element.children;
             for (let a = 0; a < elements.length; a++) {
-                if (!inlineValidate(elements[a], allInputs[allInputNames[i]]['message'], allInputs[allInputNames[i]]['type'])) {
+                if (!validate(elements[a], allInputs[allInputNames[i]]['message'], allInputs[allInputNames[i]]['type']) && element.dataset.valid != 'true') {
                     valid = false;
+                    element.setAttribute('data-valid', 'false');
                 }
             }
         }
@@ -429,13 +467,6 @@ get('_f1-submit').addEventListener('click', function () {
         get('_f1-declaration-age').removeAttribute('disabled');
         return;
     }
-
-
-
-    // Check extras
-    let temp = reservationDetails['extras'];
-    temp = temp.join(', ');
-    reservationDetails['extras'] = temp;
 
     // Push data
     reservationRef.push(reservationDetails);
@@ -452,7 +483,7 @@ get('_f1-submit').addEventListener('click', function () {
 function countDown(timeRemaining = 1, sSpan, displaySpan) {
     displaySpan.innerHTML = timeRemaining;
     if (timeRemaining == 0) {
-        location.reload()
+        location.reload();
         return;
     } else if (timeRemaining == 1) {
         sSpan.innerHTML = '';

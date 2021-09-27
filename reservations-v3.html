@@ -16,7 +16,7 @@
 <body>
     <nav class="desktop">
         <a href="index.html"><img src="assets/icon.svg" class="logo" alt="Ricky's Rides" title="Ricky's Rides"></a>
-        
+        <div class="name">Ricky's Rides</div>
         <div class="links">
             <a href="reservations-v3.html">Reservations</a>
         </div>
@@ -53,7 +53,7 @@
                 </select>
                 <div class="inline_validation"></div>
             </div><div class="input_container _2">
-                <input type="date" id="returnDate" required>
+                <input type="date" id="returnDate" required disabled>
                 <div class="inline_validation"></div>
             </div>
         </div>
@@ -69,7 +69,7 @@
                         <span class="seats">5 seats</span>
                         <span class="type">Sedan</span>
                         <span class="luggage_large"><i class="fas fa-suitcase"></i> 1</span>
-                        <span class="luggage_small"><i class="fas fa-briefcase"></i> 2</span>
+                        <span class="luggage_small"><i class="fas fa-suitcase"></i> 2</span>
                         <span class="engine"> 1.3 - 2.0 L</span>
                         <span class="economy">&plusmn; 7 L / 100 km</span>
                         <span class="fuel">Petrol</span>
@@ -209,19 +209,19 @@
             <h3>Extras</h3>
 
             <div class="input_container">
-                <input type="checkbox" class="extras_select" name="Snow Chains" data-price="60"> Snow Chains <span class="price">$ 60.00</span>
+                <input type="checkbox" class="extras_select" data-name="Snow Chains" data-price="60"> Snow Chains <span class="price">$ 60.00</span>
             </div>
             <div class="input_container">
-                <input type="checkbox" class="extras_select" name="Roof Racks" data-price="90"> Roof Racks <span class="price">$ 90.00</span>
+                <input type="checkbox" class="extras_select" data-name="Roof Racks" data-price="90"> Roof Racks <span class="price">$ 90.00</span>
             </div>
             <div class="input_container">
-                <input type="checkbox" class="extras_select" name="Bike Racks" data-price="120"> Bike Rack <span class="price">$ 120.00</span>
+                <input type="checkbox" class="extras_select" data-name="Bike Racks" data-price="120"> Bike Rack <span class="price">$ 120.00</span>
             </div>
             <div class="input_container">
-                <input type="checkbox" class="extras_select" name="GPS" data-price="35"> GPS <span class="price">$ 35.00</span>
+                <input type="checkbox" class="extras_select" data-name="GPS" data-price="35"> GPS <span class="price">$ 35.00</span>
             </div>
             <div class="input_container">
-                <input type="checkbox" class="extras_select" name="Child Booster Seat" data-price="50"> Child Booster Seat <span class="price">$ 50.00</span>
+                <input type="checkbox" class="extras_select" data-name="Child Booster Seat" data-price="50"> Child Booster Seat <span class="price">$ 50.00</span>
             </div>
 
             <br>
@@ -322,6 +322,9 @@
                     <td>Extras</td><td id="overlay-extras"></td>
                 </tr>
                 <tr>
+                    <td>Extras Total Price</td><td id="overlay-extrasTotalPrice"></td>
+                </tr>
+                <tr>
                     <td>First Name</td><td id="overlay-firstName"></td>
                 </tr>
                 <tr>
@@ -346,6 +349,8 @@
         </div>
 
     </form>
+
+    <footer></footer>
 
 
 

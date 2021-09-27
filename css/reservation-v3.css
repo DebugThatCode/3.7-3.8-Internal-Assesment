@@ -203,6 +203,10 @@ form div.part {
     display: inline-block;
 }
 
+.cards[data-valid=false] > .card {
+    box-shadow: 0 0 5px 0 red;
+}
+
 /* Part 3 */
 
 #_f1-p3 .input_container span {
@@ -247,6 +251,26 @@ form div.part {
     font-size: 10px;
 }
 
+#_f1-submit {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--bg_alt_1);
+    box-shadow: 2px 3px #a8a8a8;
+    transition: all 0.09s ease;
+    color: #fff;
+}
+#_f1-submit:disabled {
+    color: #6b6b6b;
+    background-color: #999999;
+    box-shadow: 0px 0px #a8a8a8;
+}
+#_f1-submit:active {
+    box-shadow: 0px 0px #a8a8a8;
+}
+
 
 /* Post Submition */
 
@@ -282,6 +306,8 @@ form .overlay {
     transform: translate(-50%, -50%);
     background-color: var(--bg_ac_1);
     color: var(--text_ac_1);
+    z-index: 99;
+    overflow: hidden;
 }
 form .overlay .close {
     float: right;
@@ -301,6 +327,11 @@ form .overlay .close {
     border-radius: 5px;
     background-color: var(--bg_main);
     color: #000;
+    box-shadow: 2px 3px #a8a8a8;
+    transition: all 0.09s ease;
+}
+.overlay-open:active {
+    box-shadow: 0px 0px #a8a8a8;
 }
 
 form .overlay .close i {
@@ -323,6 +354,7 @@ form .overlay table {
     left: 50%;
     transform: translate(-50%, -50%);
     border-collapse: collapse;
+    overflow: scroll;
 }
 
 form .overlay table tr td {
