@@ -1,5 +1,4 @@
-// JS version 1
-// This is an achieved version
+// JS version 3
 
 
 const database = firebase.database();
@@ -158,7 +157,7 @@ function inlineValidate(element, message, validationType) {
 
 // Calculations
 function calculateCarCosts() {
-    reservationDetails['vehicleTotalPrice'] = reservationDetails['dailyPrice'] * reservationDetails['rentPeriod'];
+    reservationDetails['vehicleTotalPrice'] = reservationDetails.dailyPrice * reservationDetails.rentPeriod;
     get('overlay-totalVehiclePrice').innerHTML = '$ ' + reservationDetails['vehicleTotalPrice'].toFixed(2);
     reservationDetails['totalPrice'] = reservationDetails['vehicleTotalPrice'] + reservationDetails['extrasTotalPrice'];
     get('overlay-totalPrice').innerHTML = '$ ' + reservationDetails['totalPrice'].toFixed(2);
@@ -233,7 +232,7 @@ get('pickupLocation').addEventListener('input', function () {
             'Dunedin Airport',
             'Ricky\'s Rides Depo' 
         ]
-        reservationDetails['pickupLocation'] = locations[selected];
+        reservationDetails.pickupLocation = locations[selected];
         get('overlay-pickupLocation').innerHTML = locations[selected];
     } else {
         get('overlay-pickupLocation').innerHTML = '<span class="invalid_entry">Please Select</span>';
@@ -243,14 +242,14 @@ get('pickupLocation').addEventListener('input', function () {
 get('pickupDate').setAttribute('min', todayHTML);
 get('pickupDate').addEventListener('input', function () {
     if (inlineValidate(this, allInputs[this.id]['message'], 'date')) {
-        reservationDetails['pickupDate'] = this.value;
+        reservationDetails.pickupDate = this.value;
         get('overlay-pickupDate').innerHTML = this.value;
         let pickupJS = getJsDate(this.value);
         let returnMin = pickupJS;
         returnMin.setTime(pickupJS.getTime() + (1 * 24 * 60 * 60 * 1000));
         get('returnDate').min = getHTMLDate(returnMin);
         let returnMax = pickupJS;
-        returnMax.setTime(pickupJS.getTime() + (21 * 24 * 60 * 60 * 1000));
+        returnMax.setTime(pickupJS.getTime() + (20 * 24 * 60 * 60 * 1000));
         get('returnDate').max = getHTMLDate(returnMax);
         get('returnDate').value = '';
         get('returnDate').removeAttribute('disabled');
@@ -269,7 +268,7 @@ get('returnLocation').addEventListener('input', function () {
         'Dunedin Airport',
         'Ricky\'s Rides Depo' 
     ];
-    reservationDetails['returnLocation'] = locations[selected];
+    reservationDetails.returnLocation = locations[selected];
     get('overlay-returnLocation').innerHTML = locations[selected];
 });
 // Return date
@@ -281,7 +280,7 @@ get('returnDate').addEventListener('input', function () {
         let PD = getJsDate(get('pickupDate').value);
         let RD = getJsDate(this.value);
         let period = Math.floor((RD.getTime() - PD.getTime()) / (24 * 60 * 60 * 1000));
-        reservationDetails['rentPeriod'] = period;
+        reservationDetails.rentPeriod = period;
         get('overlay-rentPeriod').innerHTML = period + ' days';
         calculateCarCosts();
 
@@ -304,14 +303,16 @@ for (let i = 0; i < carCards.length; i++) {
         carCards[i].setAttribute('data-selected', 'true');
         if (validate(carCards[i], 'buttonSelect')) {
             carCards[i].parentElement.setAttribute('data-valid', 'true');
-            reservationDetails['vehicle'] = carCards[i].getAttribute('data-name');
-            get('overlay-vehicle').innerHTML = reservationDetails['vehicle'];
-            reservationDetails['dailyPrice'] = Number(carCards[i].getAttribute('data-price'));
-            get('overlay-dailyPrice').innerHTML = '$ ' + reservationDetails['dailyPrice'].toFixed(2);
+            reservationDetails.vehicle = carCards[i].getAttribute('data-name');
+            get('overlay-vehicle').innerHTML = reservationDetails.vehicle;
+            reservationDetails.dailyPrice = Number(carCards[i].getAttribute('data-price'));
+            get('overlay-dailyPrice').innerHTML = '$ ' + reservationDetails.dailyPrice.toFixed(2);
             calculateCarCosts();
             if (reservationDetails.pickupDate == null) {
-                inlineMessage(get('pickupDate'), true, 'Please enter a date to calculate price')
-                inlineMessage(get('returnDate'), true, 'Please enter a date to calculate price')
+                inlineMessage(get('pickupDate'), true, 'Please enter a date to calculate price');
+                inlineMessage(get('returnDate'), true, 'Please enter a date to calculate price');
+            } else if (reservationDetails.returnDate == null) {
+                inlineMessage(get('returnDate'), true, 'Please enter a date to calculate price');
             }
         }
     });
@@ -343,7 +344,7 @@ for (let i = 0; i < extras.length; i++) {
 // First name
 get('firstName').addEventListener('input', function () {
     if (inlineValidate(this, allInputs[this.id]['message'], 'pattern')) {
-        reservationDetails['firstName'] = this.value;
+        reservationDetails.firstName = this.value;
         get('overlay-firstName').innerHTML = this.value;
     } else {
         get('overlay-firstName').innerHTML = '<span class="invalid_entry">' + this.value + '</span>';
@@ -352,7 +353,7 @@ get('firstName').addEventListener('input', function () {
 // Last Name
 get('lastName').addEventListener('input', function () {
     if (inlineValidate(this, allInputs[this.id]['message'], 'pattern')) {
-        reservationDetails['lastName'] = this.value;
+        reservationDetails.lastName = this.value;
         get('overlay-lastName').innerHTML = this.value;
     } else {
         get('overlay-lastName').innerHTML = '<span class="invalid_entry">' + this.value + '</span>';
@@ -366,10 +367,9 @@ let DOBMax = new Date();
 DOBMax.setTime(todayJS.getTime() - (80 * 365 * 24 * 60 * 60 * 1000));
 get('DOB').min = getHTMLDate(DOBMax);
 get('DOB').addEventListener('input', function () {
-    // reservationDetails['DOB'] = this.value;
     if (inlineValidate(this, allInputs[this.id]['message'], 'date')) {
-        reservationDetails['DOB'] = this.value;
-        get('overlay-DOB').innerHTML = reservationDetails['DOB'];
+        reservationDetails.DOB = this.value;
+        get('overlay-DOB').innerHTML = reservationDetails.DOB;
     } else {
         get('overlay-DOB').innerHTML = '<span class="invalid_entry">' + this.value + '</span>';
     }
@@ -377,7 +377,7 @@ get('DOB').addEventListener('input', function () {
 // Mobile Phone
 get('mobilePhone').addEventListener('input', function () {
     if (inlineValidate(this, allInputs[this.id]['message'], 'pattern')) {
-        reservationDetails['mobilePhone'] = this.value;
+        reservationDetails.mobilePhone = this.value;
         get('overlay-phone').innerHTML = this.value;
     } else {
         get('overlay-phone').innerHTML = '<span class="invalid_entry">' + this.value + '</span>';
@@ -386,7 +386,7 @@ get('mobilePhone').addEventListener('input', function () {
 // Email
 get('email').addEventListener('input', function () {
     if (inlineValidate(this, allInputs[this.id]['message'], 'pattern')) {
-        reservationDetails['email'] = this.value;
+        reservationDetails.email = this.value;
         get('overlay-email').innerHTML = this.value;
     } else {
         get('overlay-email').innerHTML = '<span class="invalid_entry">' + this.value + '</span>';
@@ -395,7 +395,7 @@ get('email').addEventListener('input', function () {
 // Drivers license
 get('driversLicense').addEventListener('input', function () {
     if (inlineValidate(this, allInputs[this.id]['message'], 'pattern')) {
-        reservationDetails['driversLicense'] = this.value;
+        reservationDetails.driversLicense = this.value;
         get('overlay-driverLicense').innerHTML = this.value;
     } else {
         get('overlay-driverLicense').innerHTML = '<span class="invalid_entry">' + this.value + '</span>';
@@ -409,23 +409,23 @@ let declaration = {
 };
 get('_f1-declaration-termsConditions').addEventListener('input', function () {
     if (this.checked) {
-        declaration['termsConditions'] = true;
-        if (declaration['age']) {
+        declaration.termsConditions = true;
+        if (declaration.age) {
             get('_f1-submit').removeAttribute('disabled');
         }
     } else {
-        declaration['termsConditions'] = false;
+        declaration.termsConditions = false;
         get('_f1-submit').setAttribute('disabled', '');
     }
 });
 get('_f1-declaration-age').addEventListener('input', function () {
     if (this.checked) {
-        declaration['age'] = true;
-        if (declaration['termsConditions']) {
+        declaration.age = true;
+        if (declaration.termsConditions) {
             get('_f1-submit').removeAttribute('disabled');
         }
     } else {
-        declaration['age'] = false;
+        declaration.age = false;
         get('_f1-submit').setAttribute('disabled', '');
     }
 });
@@ -435,8 +435,6 @@ get('_f1-submit').addEventListener('click', function () {
     this.setAttribute('disabled', '');
     get('_f1-declaration-termsConditions').setAttribute('disabled', '');
     get('_f1-declaration-age').setAttribute('disabled', '');
-    console.clear();
-    console.log(reservationDetails);
 
     // Validate Data
     let valid = true;
@@ -445,6 +443,9 @@ get('_f1-submit').addEventListener('click', function () {
         if (allInputs[allInputNames[i]]['tagName'] == 'id') {
             let element = get(allInputNames[i]);
             if (!inlineValidate(element, allInputs[allInputNames[i]]['message'], allInputs[allInputNames[i]]['type'])) {
+                if (valid) { // Calls for first invalid input
+                    pageScrollToElement(element)
+                }
                 valid = false;
             }
         } else if (allInputs[allInputNames[i]]['tagName'] == 'list') {
@@ -452,6 +453,9 @@ get('_f1-submit').addEventListener('click', function () {
             let elements = element.children;
             for (let a = 0; a < elements.length; a++) {
                 if (!validate(elements[a], allInputs[allInputNames[i]]['message'], allInputs[allInputNames[i]]['type']) && element.dataset.valid != 'true') {
+                    if (valid) { // Calls for first invalid input
+                        pageScrollToElement(element)
+                    }
                     valid = false;
                     element.setAttribute('data-valid', 'false');
                 }
@@ -477,6 +481,10 @@ get('_f1-submit').addEventListener('click', function () {
     get('_f1').setAttribute('class', 'complete');
     countDown(30, get('_f1-refreshCountDown-s'), get('_f1-refreshCountDown'));
 });
+
+function pageScrollToElement(element) {
+    element.scrollIntoView();
+}
 
 // Post Submition
 

@@ -1,5 +1,4 @@
-// JS version 1
-// This is an achieved version
+// JS version 2
 
 
 const database = firebase.database();

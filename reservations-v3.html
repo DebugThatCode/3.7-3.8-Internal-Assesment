@@ -4,19 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Reservations | Ricky's Rides</title>
-    <link rel="stylesheet" href="css/reservation-v3.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/reservation-v4.css">
+    <link rel="stylesheet" href="css/main-v2.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <style>
-        span {
-            display: block;
-        }
-    </style>
 </head>
 <body>
     <nav class="desktop">
-        <a href="index.html"><img src="assets/icon.svg" class="logo" alt="Ricky's Rides" title="Ricky's Rides"></a>
-        <div class="name">Ricky's Rides</div>
+        <div class="logo_title">
+            <a href="index.html"><img src="assets/icon.svg" class="logo" alt="Ricky's Rides" title="Ricky's Rides"></a>
+            <div class="name">Ricky's Rides</div>
+        </div>
+        
         <div class="links">
             <a href="reservations-v3.html">Reservations</a>
         </div>
@@ -292,65 +290,81 @@
         </div>
 
         <div id="_f1-overlay" class="overlay">
+            <div class="table_container">
+                <table>
+                    <tr>
+                        <td>Pickup Date</td><td id="overlay-pickupDate"></td>
+                    </tr>
+                    <tr>
+                        <td>Pickup Location</td><td id="overlay-pickupLocation"><span class="invalid_entry">Please Select</span></td>
+                    </tr>
+                    <tr>
+                        <td>Return Date</td><td id="overlay-returnDate"></td>
+                    </tr>
+                    <tr>
+                        <td>Return Location</td><td id="overlay-returnLocation">Return to same location</td>
+                    </tr>
+                    <tr>
+                        <td>Rent Period</td><td id="overlay-rentPeriod"></td>
+                    </tr>
+                    <tr>
+                        <td>Vehicle</td><td id="overlay-vehicle"></td>
+                    </tr>
+                    <tr>
+                        <td>Daily Price</td><td id="overlay-dailyPrice"></td>
+                    </tr>
+                    <tr>
+                        <td>Total Vehicle Price</td><td id="overlay-totalVehiclePrice"></td>
+                    </tr>
+                    <tr>
+                        <td>Extras</td><td id="overlay-extras"></td>
+                    </tr>
+                    <tr>
+                        <td>Extras Total Price</td><td id="overlay-extrasTotalPrice"></td>
+                    </tr>
+                    <tr>
+                        <td>First Name</td><td id="overlay-firstName"></td>
+                    </tr>
+                    <tr>
+                        <td>Last Name</td><td id="overlay-lastName"></td>
+                    </tr>
+                    <tr>
+                        <td>DOB</td><td id="overlay-DOB"></td>
+                    </tr>
+                    <tr>
+                        <td>Phone</td><td id="overlay-phone"></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td><td id="overlay-email"></td>
+                    </tr>
+                    <tr>
+                        <td>Drivers License</td><td id="overlay-driverLicense"></td>
+                    </tr>
+                    <tr>
+                        <td>Total Price</td><td id="overlay-totalPrice"></td>
+                    </tr>
+                </table>
+            </div>
+            
             <button type="button" id="_f1-overlay-close" class="close"><i class="fas fa-times"></i></button>
-            <table>
-                <tr>
-                    <td>Pickup Date</td><td id="overlay-pickupDate"></td>
-                </tr>
-                <tr>
-                    <td>Pickup Location</td><td id="overlay-pickupLocation"><span class="invalid_entry">Please Select</span></td>
-                </tr>
-                <tr>
-                    <td>Return Date</td><td id="overlay-returnDate"></td>
-                </tr>
-                <tr>
-                    <td>Return Location</td><td id="overlay-returnLocation">Return to same location</td>
-                </tr>
-                <tr>
-                    <td>Rent Period</td><td id="overlay-rentPeriod"></td>
-                </tr>
-                <tr>
-                    <td>Vehicle</td><td id="overlay-vehicle"></td>
-                </tr>
-                <tr>
-                    <td>Daily Price</td><td id="overlay-dailyPrice"></td>
-                </tr>
-                <tr>
-                    <td>Total Vehicle Price</td><td id="overlay-totalVehiclePrice"></td>
-                </tr>
-                <tr>
-                    <td>Extras</td><td id="overlay-extras"></td>
-                </tr>
-                <tr>
-                    <td>Extras Total Price</td><td id="overlay-extrasTotalPrice"></td>
-                </tr>
-                <tr>
-                    <td>First Name</td><td id="overlay-firstName"></td>
-                </tr>
-                <tr>
-                    <td>Last Name</td><td id="overlay-lastName"></td>
-                </tr>
-                <tr>
-                    <td>DOB</td><td id="overlay-DOB"></td>
-                </tr>
-                <tr>
-                    <td>Phone</td><td id="overlay-phone"></td>
-                </tr>
-                <tr>
-                    <td>Email</td><td id="overlay-email"></td>
-                </tr>
-                <tr>
-                    <td>Drivers License</td><td id="overlay-driverLicense"></td>
-                </tr>
-                <tr>
-                    <td>Total Price</td><td id="overlay-totalPrice"></td>
-                </tr>
-            </table>
         </div>
 
     </form>
 
-    <footer></footer>
+    <footer>
+        <div class="grid">
+            <div class="container">
+                <div class="content">
+                    <p>2 Arthur Street Dunedin</p>
+                </div>
+            </div><div class="container">
+                <div class="content">
+                    <p>03 4775277</p>
+                    <p>rickeysrides@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 
 

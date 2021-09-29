@@ -299,7 +299,7 @@ form .overlay {
     height: 90vh;
     max-height: 900px;
     box-sizing: border-box;
-    padding: 20px;
+    padding: 50px 20px;
     border-radius: 15px;
     top: 50%;
     left: 50%;
@@ -309,6 +309,7 @@ form .overlay {
     z-index: 99;
     overflow: hidden;
 }
+
 form .overlay .close {
     float: right;
     padding: 15px;
@@ -336,25 +337,36 @@ form .overlay .close {
 
 form .overlay .close i {
     position: absolute;
-    font-size: 20px;
-    color: var(--text_ac_1);
+    font-size: 30px;
+    color: #fff;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
+form .overlay .table_container {
+    max-height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+@media only screen and (max-height: 900px) {
+    form .overlay .table_container {
+        overflow-y: scroll;
+    }
+}
+
 form .overlay table {
     max-width: 100%;
     width: fit-content;
-    position: absolute;
     max-height: 100%;
     box-sizing: border-box;
-    padding: 20px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    /* padding: 20px; */
+    margin: 0 auto 0;
     border-collapse: collapse;
-    overflow: scroll;
+    /* overflow: scroll; */
 }
 
 form .overlay table tr td {
