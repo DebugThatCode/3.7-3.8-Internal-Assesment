@@ -19,6 +19,9 @@ let reservationDetails = {
     // Extras
     extras: [],
     extrasTotalPrice: 0,
+    // Mandatory
+    insuranceFee: 0,
+    bookingFee: 50,
     // User details
     firstName: null,
     lastName: null,
@@ -26,6 +29,7 @@ let reservationDetails = {
     mobilePhone: null,
     email: null,
     driversLicense: null,
+    comments: null,
     // Total
     totalPrice: 0
 };
@@ -73,28 +77,28 @@ function getClass(name) {
 
 // Inline Validation
 
-function validate(element, validationType) {
+function validate(element, validationType) { // Validates inputs of pattern, date, select, buttonSelect (group of buttons acting as radio)
     if (validationType == 'pattern') {
         if (element.getAttributeNames().includes('required')) {
             if (element.value == '' || element.value == null || element.value == undefined) {
-                return false;
+                return false; // returns false if input is empty and is required
             }
         }
-        return element.checkValidity();
+        return element.checkValidity(); // returns validity unless input is empty then returns true
     } else if (validationType == 'date') {
         if (element.getAttributeNames().includes('required')) {
             if (element.value == '') {
-                return false;
+                return false; // returns false if input is empty and is required
             } else {
-                return element.checkValidity();
+                return element.checkValidity(); // returns the validity of the input based of min and max
             }
         } else {
-            return true;
+            return element.checkValidity(); // returns validity unless input is empty then returns true
         }
     } else if (validationType == 'select') {
-        let selected = element.selectedIndex;
-        let selectedOption = element.children[selected];
-        if (selectedOption.getAttribute('data-valid') == 'true') {
+        let selected = element.selectedIndex; // gets index of selected
+        let selectedOption = element.children[selected]; // finds select element as html object
+        if (selectedOption.getAttribute('data-valid') == 'true') { // checks the value of data-valid aand returns value
             return true;
         } else {
             return false;
@@ -102,65 +106,72 @@ function validate(element, validationType) {
 
     } else if (validationType == 'buttonSelect') {
         let name;
-        try {
-            name = element.getAttribute('data-name');
+        try { // error handling
+            name = element.getAttribute('data-name'); // sets name a data-name attribute
         } catch {
             name = 'false';
-            return false;
+            return false; // returns false if no name
         }
         let selected;
         try {
-            selected = element.getAttribute('data-selected');
+            selected = element.getAttribute('data-selected'); // checks if selected
         } catch {
-            return false;
+            return false; // returns false if not value
         }
 
-        let parent = element.parentElement;
+        let parent = element.parentElement; //  itterates through buttons of the same parent
         for (let i = 0; i < parent.children.length; i++) {
             if (parent.children[i].getAttribute('data-name') == name) {
                 // parent.children[i].setAttribute('data-selected', 'true');
             } else {
-                parent.children[i].setAttribute('data-selected', 'false');
+                parent.children[i].setAttribute('data-selected', 'false'); // if not selected  input set to false
             }
         }
         return true;
     } else {
-        return false;
+        console.error('Invalid validationType' + '\nelement: ' + element + '\nvalidationType: ' + validationType) //  Sends an error message to console if validation type isn't supported
     }
 }
 
 function inlineMessage(element, active, message) {
-    // Using input_container's
-    // Inline error should always be secound child (after input)
+    // Using input_container's find inline message element
     for (let i = 0; i < element.parentElement.children.length; i++) {
         try {
             if (element.parentElement.children[i].getAttribute('class').includes('inline_validation')) {
                 if (active) {
+                    // Displays inline message
                     element.parentElement.children[i].innerHTML = message;
                     element.style.border = '2px solid red';
-                } else {
+                } else { 
+                    // Removes inline message
                     element.parentElement.children[i].innerHTML = '';
                     element.style = '';
                 }
             }
         } catch {
-            // do nothing
+            // do nothing (no inline message element)
         }
     }    
 }
 
 function inlineValidate(element, message, validationType) {
     inlineMessage(element, !validate(element, validationType), message);
-    return validate(element, validationType);
+    return validate(element, validationType); // returns true if valid
 }
 
 
 // Calculations
 function calculateCarCosts() {
-    reservationDetails['vehicleTotalPrice'] = reservationDetails.dailyPrice * reservationDetails.rentPeriod;
-    get('overlay-totalVehiclePrice').innerHTML = '$ ' + reservationDetails['vehicleTotalPrice'].toFixed(2);
-    reservationDetails['totalPrice'] = reservationDetails['vehicleTotalPrice'] + reservationDetails['extrasTotalPrice'];
-    get('overlay-totalPrice').innerHTML = '$ ' + reservationDetails['totalPrice'].toFixed(2);
+    // Vehicle
+    reservationDetails.vehicleTotalPrice = reservationDetails.dailyPrice * reservationDetails.rentPeriod; // calculate cost
+    get('overlay-totalVehiclePrice').innerHTML = '$ ' + reservationDetails.vehicleTotalPrice.toFixed(2); // set in overlay
+    // Mandatory
+    reservationDetails.insuranceFee = 20 * reservationDetails.rentPeriod; // calculate insurance cost
+    get('mandatory_insurance').innerHTML = '$ ' + reservationDetails.insuranceFee.toFixed(2); // display on form
+    get('overlay-mandatory_insurance').innerHTML = '$ ' + reservationDetails.insuranceFee.toFixed(2); // set in overlay}
+    // Total
+    reservationDetails['totalPrice'] = reservationDetails.vehicleTotalPrice + reservationDetails.extrasTotalPrice + reservationDetails.insuranceFee + reservationDetails.bookingFee; // calculate total cost
+    get('overlay-totalPrice').innerHTML = '$ ' + reservationDetails.totalPrice.toFixed(2); // set in overlay
 }
 
 
@@ -204,7 +215,7 @@ const allInputs = {
     'DOB': {
         'tagName': 'id',
         'type': 'date',
-        'message': 'You must be at least 25 to rent a car (and less than 80)'
+        'message': 'You must be at least 25 years old to rent a car and less than 80 years of age'
     },
     'mobilePhone': {
         'tagName': 'id',
@@ -225,36 +236,36 @@ const allInputs = {
 
 // Pickup location
 get('pickupLocation').addEventListener('input', function () {
-    if (inlineValidate(this, allInputs[this.id]['message'], 'select')) {
+    if (inlineValidate(this, allInputs[this.id]['message'], 'select')) { // check if input is valid
         let selected = this.selectedIndex;
-        let locations = [
+        let locations = [ // list of locations
             null,
             'Dunedin Airport',
             'Ricky\'s Rides Depo' 
         ]
-        reservationDetails.pickupLocation = locations[selected];
-        get('overlay-pickupLocation').innerHTML = locations[selected];
+        reservationDetails.pickupLocation = locations[selected]; // set location
+        get('overlay-pickupLocation').innerHTML = locations[selected]; // set in overlay
     } else {
-        get('overlay-pickupLocation').innerHTML = '<span class="invalid_entry">Please Select</span>';
+        get('overlay-pickupLocation').innerHTML = '<span class="invalid_entry">Please Select</span>'; // error message in overlay
     }
 });
 // Pickup date
-get('pickupDate').setAttribute('min', todayHTML);
+get('pickupDate').setAttribute('min', todayHTML); // set min pickup date
 get('pickupDate').addEventListener('input', function () {
-    if (inlineValidate(this, allInputs[this.id]['message'], 'date')) {
-        reservationDetails.pickupDate = this.value;
-        get('overlay-pickupDate').innerHTML = this.value;
-        let pickupJS = getJsDate(this.value);
-        let returnMin = pickupJS;
-        returnMin.setTime(pickupJS.getTime() + (1 * 24 * 60 * 60 * 1000));
-        get('returnDate').min = getHTMLDate(returnMin);
-        let returnMax = pickupJS;
-        returnMax.setTime(pickupJS.getTime() + (20 * 24 * 60 * 60 * 1000));
-        get('returnDate').max = getHTMLDate(returnMax);
-        get('returnDate').value = '';
-        get('returnDate').removeAttribute('disabled');
+    if (inlineValidate(this, allInputs[this.id]['message'], 'date')) { // check if input is valid
+        reservationDetails.pickupDate = this.value; // sets pickupDate
+        get('overlay-pickupDate').innerHTML = this.value; // sets in overlay
+        let pickupJS = getJsDate(this.value); // convert date to js format
+        let returnMin = pickupJS; // set the return min base value in order to calculate
+        returnMin.setTime(pickupJS.getTime() + (1 * 24 * 60 * 60 * 1000)); // set the date 1 day after pickup using milliseconds
+        get('returnDate').min = getHTMLDate(returnMin); // set min on returnDate element
+        let returnMax = pickupJS; // set the return max base value in order to calculate
+        returnMax.setTime(pickupJS.getTime() + (20 * 24 * 60 * 60 * 1000)); // set the date 20 days later so max is 21
+        get('returnDate').max = getHTMLDate(returnMax); // set max on returnDate element
+        get('returnDate').value = ''; // Clear the value of returnDate to force user to enter a new date
+        get('returnDate').removeAttribute('disabled'); // enables returnDate on first pickupDate input
     } else {
-        get('overlay-returnDate').innerHTML = '<span class="invalid_entry">' + this.value + '</span>';
+        get('overlay-returnDate').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'; // error message in overlay
     }
     
 });
@@ -401,6 +412,10 @@ get('driversLicense').addEventListener('input', function () {
         get('overlay-driverLicense').innerHTML = '<span class="invalid_entry">' + this.value + '</span>';
     }
 });
+// Extra comments
+get('comments').addEventListener('input', function () {
+    reservationDetails.comments = this.value;
+})
 
 // Declaration checkbox's
 let declaration = {
@@ -479,6 +494,7 @@ get('_f1-submit').addEventListener('click', function () {
 
     // Go to postSubmition
     get('_f1').setAttribute('class', 'complete');
+    get('_f1-postSubmition-email').innerHTML = reservationDetails.email;
     countDown(30, get('_f1-refreshCountDown-s'), get('_f1-refreshCountDown'));
 });
 

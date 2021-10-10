@@ -213,7 +213,41 @@ form div.part {
     display: inline-block;
 }
 
+#_f1-p3 .container {
+    width: fit-content;
+    max-width: 100%;
+    margin: 10px auto;
+}
+
+#_f1-p3 .input_container {
+    text-align: left;
+}
+
+#_f1-p3 .input_container span {
+    margin-top: 20px;
+    margin-left: 20px;
+    float: right;
+    color: var(--bg_main);
+}
+
 /* Part 4 */
+
+.mandatory_costs {
+    width: fit-content;
+    max-width: 100%;
+    margin: 20px auto 30px;
+}
+
+.mandatory_costs p {
+    text-align: left;
+}
+
+.mandatory_costs p span.price {
+    color: var(--bg_main);
+    margin-left: 20px;
+    float: right;
+}
+
 
 #_f1-p4 .input_container {
     width: 100%;
@@ -226,6 +260,11 @@ form div.part {
 #_f1-p4 .input_container label {
     display: block;
     margin: auto 6px 3px;
+}
+
+#_f1-p4 .input_container label span.required {
+    float: right;
+    color: red;
 }
 
 #_f1-p4 .input_container input, #_f1-p4 .input_container textarea {
@@ -250,6 +289,9 @@ form div.part {
     right: 7px;
     font-size: 10px;
 }
+
+
+/* Part 4 submit */
 
 #_f1-submit {
     display: block;
@@ -294,7 +336,7 @@ form.complete > div.part:not(#_f1-postSubmition) {
 form .overlay {
     display: none; /* Default is closed (none) */
     position: fixed;
-    width: 90%;
+    width: 95%;
     max-width: 500px;
     height: 90vh;
     max-height: 900px;
@@ -347,8 +389,9 @@ form .overlay .close i {
 form .overlay .table_container {
     max-height: 100%;
     width: 100%;
-    overflow-y: hidden;
-    overflow-x: hidden;
+    /* overflow-y: hidden;
+    overflow-x: hidden; */
+    overflow-y: scroll;
     box-sizing: border-box;
 }
 
@@ -373,6 +416,7 @@ form .overlay table tr td {
     padding: 10px 5px;
     border-top: 2px solid #ececee99;
     border-bottom: 2px solid #ececee99;
+    
 }
 
 form .overlay table tr td:nth-child(1) {
@@ -388,7 +432,6 @@ form .overlay span.invalid_entry {
     background-color: #ff000099;
     color: #fff;
 }
-
 
 input[type=checkbox] {
     -webkit-appearance: none;
@@ -413,7 +456,7 @@ input[type=checkbox] {
     margin-right: 0.5rem;
     outline: none;
     position: relative;
-    z-index: 1000;
+    z-index: 99;
 }
 
 input[type=checkbox]:hover {
