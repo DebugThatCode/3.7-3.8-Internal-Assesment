@@ -246,7 +246,7 @@ get('pickupLocation').addEventListener('input', function () {
         reservationDetails.pickupLocation = locations[selected]; // set location
         get('overlay-pickupLocation').innerHTML = locations[selected]; // set in overlay
     } else {
-        get('overlay-pickupLocation').innerHTML = '<span class="invalid_entry">Please Select</span>'; // error message in overlay
+        get('overlay-pickupLocation').innerHTML = '<span class="invalid_entry">Please Select</span>'; // error indication in overlay
     }
 });
 // Pickup date
@@ -265,7 +265,7 @@ get('pickupDate').addEventListener('input', function () {
         get('returnDate').value = ''; // Clear the value of returnDate to force user to enter a new date
         get('returnDate').removeAttribute('disabled'); // enables returnDate on first pickupDate input
     } else {
-        get('overlay-returnDate').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'; // error message in overlay
+        get('overlay-returnDate').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'; // error indication in overlay
     }
     
 });
@@ -274,35 +274,37 @@ get('pickupDate').addEventListener('input', function () {
 // Return location
 get('returnLocation').addEventListener('input', function () {
     let selected = this.selectedIndex;
-    let locations = [
+    let locations = [ // list of locations
         'Return to same location',
         'Dunedin Airport',
         'Ricky\'s Rides Depo' 
     ];
-    reservationDetails.returnLocation = locations[selected];
-    get('overlay-returnLocation').innerHTML = locations[selected];
+    reservationDetails.returnLocation = locations[selected]; // sets return location
+    get('overlay-returnLocation').innerHTML = locations[selected]; // sets in overlay
 });
 // Return date
 get('returnDate').addEventListener('input', function () {
-    if (inlineValidate(this, allInputs[this.id]['message'], 'date')) {
-        reservationDetails['returnDate'] = this.value;
+    if (inlineValidate(this, allInputs[this.id]['message'], 'date')) { // check if input is valid
+        reservationDetails.returnDate = this.value; // set return date
         get('overlay-returnDate').innerHTML = this.value;
         // Calculate car total prices to display
-        let PD = getJsDate(get('pickupDate').value);
-        let RD = getJsDate(this.value);
-        let period = Math.floor((RD.getTime() - PD.getTime()) / (24 * 60 * 60 * 1000));
-        reservationDetails.rentPeriod = period;
-        get('overlay-rentPeriod').innerHTML = period + ' days';
+        let PD = getJsDate(get('pickupDate').value); // pickup
+        let RD = getJsDate(this.value); // return
+        let period = Math.floor((RD.getTime() - PD.getTime()) / (24 * 60 * 60 * 1000)); // difference in days
+        reservationDetails.rentPeriod = period; // set period
+        get('overlay-rentPeriod').innerHTML = period + ' days'; // set in overlay
+
         calculateCarCosts();
 
+        // Set prices on car cards
         let cards = getClass('carCard');
         for (let i = 0; i < cards.length; i++) {
             let dailyPrice = Number(cards[i].getAttribute('data-price'));
-            cards[i].children[1].children[9].children[1].innerHTML = '$ ' + (dailyPrice * period).toFixed(2);
+            cards[i].children[1].children[9].children[1].innerHTML = '$ ' + (dailyPrice * period).toFixed(2); // calculate by multipling dailyprice by rentperiod
         }
 
     } else {
-        get('overlay-returnDate').innerHTML = '<span class="invalid_entry">' + this.value + '</span>';
+        get('overlay-returnDate').innerHTML = '<span class="invalid_entry">' + this.value + '</span>'; // error indication in overlay
     }
 });
 
