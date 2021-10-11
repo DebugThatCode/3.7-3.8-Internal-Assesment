@@ -4,15 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Reservations | Ricky's Rides</title>
+    <!-- Style -->
     <link rel="stylesheet" href="css/reservation-v4.css">
     <link rel="stylesheet" href="css/main-v2.css">
+    <!-- Fonts awesome icons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <!-- Favicon -->
 	<link rel="icon" href="assets/icon.svg">
 </head>
 <body>
+    <!-- Nav bar -->
     <nav class="desktop">
         <div class="logo_title">
+            <!-- logo is link to home page -->
             <a href="index.html"><img src="assets/icon.svg" class="logo" alt="Ricky's Rides" title="Ricky's Rides"></a>
             <div class="name">Ricky's Rides</div>
         </div>
@@ -23,7 +27,7 @@
     </nav>
 
 
-
+    <!-- Form -->
     <form id="_f1">
 
         <div id="_f1-header" class="part">
@@ -33,6 +37,7 @@
         <div id="_f1-p1" class="part">
             <h2>Step 1 - Pickup and Return</h2>
             <div class="input_container _1">
+                <!-- pickup location select -->
                 <select id="pickupLocation" required>
                     <option data-valid="false">- Pickup -</option>
                     <option data-valid="true">Dunedin Airport</option>
@@ -40,6 +45,7 @@
                 </select>
                 <div class="inline_validation"></div>
             </div><div class="input_container _2">
+                <!-- pickup date -->
                 <input type="date" id="pickupDate" required>
                 <div class="inline_validation"></div>
             </div>
@@ -47,6 +53,7 @@
             <br>
 
             <div class="input_container _1">
+                <!-- return location select -->
                 <select id="returnLocation">
                     <option data-valid="true">Return to same location</option>
                     <option data-valid="true">Dunedin Airport</option>
@@ -54,6 +61,7 @@
                 </select>
                 <div class="inline_validation"></div>
             </div><div class="input_container _2">
+                <!-- return date -->
                 <input type="date" id="returnDate" required disabled>
                 <div class="inline_validation"></div>
             </div>
@@ -62,9 +70,10 @@
         <div id="_f1-p2" class="part">
             <h2>Step 2 - Select a vehicle</h2>
 
+            <!-- Car cards -->
             <div class="cards" id="carCards">
 
-                <button type="button" class="carCard card" data-name="Nissan Tiida" data-price="18">
+                <div class="carCard card" data-name="Nissan Tiida" data-price="18">
                     <img class="image" alt="Nissan Tiida" src="assets/images/car-photos/nissan_tiida.jpeg">
                     <div class="details">
                         <span class="name">Nissan Tiida</span>
@@ -81,9 +90,9 @@
                             <span class="daily_price">$ 18.00 / day</span><span class="total_price">$ --.--</span>
                         </div>
                     </div>
-                </button>
+                </div>
 
-                <button type="button" class="carCard card" data-name="Suzuki Swift" data-price="18">
+                <div class="carCard card" data-name="Suzuki Swift" data-price="18">
                     <img class="image" alt="Suzuki Swift" src="assets/images/car-photos/suzuki_swift.jpg">
                     <div class="details">
                         <span class="name">Suzuki Swift</span>
@@ -101,9 +110,9 @@
                             <span class="total_price">$ --.--</span>
                         </div>
                     </div>
-                </button>
+                </div>
 
-                <button type="button" class="carCard card" data-name="Mazda 3" data-price="23">
+                <div class="carCard card" data-name="Mazda 3" data-price="23">
                     <img class="image" alt="Mazda 3" src="assets/images/car-photos/mazda_3.JPG">
                     <div class="details">
                         <span class="name">Mazda 3</span>
@@ -121,9 +130,9 @@
                             <span class="total_price">$ --.--</span>
                         </div>
                     </div>
-                </button>
+                </div>
 
-                <button type="button" class="carCard card" data-name="Holden Trax" data-price="41">
+                <div class="carCard card" data-name="Holden Trax" data-price="41">
                     <img class="image" alt="Holden Trax" src="assets/images/car-photos/Holden_Trax.jpg">
                     <div class="details">
                         <span class="name">Holden Trax</span>
@@ -141,9 +150,9 @@
                             <span class="total_price">$ --.--</span>
                         </div>
                     </div>
-                </button>
+                </div>
 
-                <button type="button" class="carCard card" data-name="Holden Captiva" data-price="52">
+                <div class="carCard card" data-name="Holden Captiva" data-price="52">
                     <img class="image" alt="Holden Captiva" src="assets/images/car-photos/holden_captiva.jfif">
                     <div class="details">
                         <span class="name">Holden Captiva</span>
@@ -161,9 +170,9 @@
                             <span class="total_price">$ --.--</span>
                         </div>
                     </div>
-                </button>
+                </div>
 
-                <button type="button" class="carCard card" data-name="Toyota Estima" data-price="62">
+                <div class="carCard card" data-name="Toyota Estima" data-price="62">
                     <img class="image" alt="Toyota Estima" src="assets/images/car-photos/toyota_estima.jpeg">
                     <div class="details">
                         <span class="name">Toyota Estima</span>
@@ -181,9 +190,9 @@
                             <span class="total_price">$ --.--</span>
                         </div>
                     </div>
-                </button>
+                </div>
 
-                <button type="button" class="carCard card" data-name="Nissan Camper Van" data-price="89">
+                <div class="carCard card" data-name="Nissan Camper Van" data-price="89">
                     <img class="image" alt="Nissan Caravan" src="assets/images/car-photos/nissan_caravan.jpeg">
                     <div class="details">
                         <span class="name">Nissan Caravan</span>
@@ -201,7 +210,7 @@
                             <span class="total_price">$ --.--</span>
                         </div>
                     </div>
-                </button>
+                </div>
 
             </div>
 
@@ -210,6 +219,7 @@
         <div id="_f1-p3" class="part">
             <h2>Step 3 - Extras vehicle options</h2>
 
+            <!-- Container allowing for centering -->
             <div class="container">
 
                 <div class="input_container">
@@ -237,6 +247,7 @@
 
             <h2>Step 4 - Personal details</h2>
 
+            <!-- shows user mandatory costs -->
             <div class="mandatory_costs">
                 <p>Insurance Fee ($ 20.00 / day) <span class="price" id="mandatory_insurance">$ 0.00</span></p>
                 <p>Booking Fee <span class="price">$ 50.00</span></p>
@@ -244,6 +255,7 @@
 
             <button type="button" class="overlay-open">Booking Summary</button>
 
+            <!-- personal details inputs -->
             <div class="input_container">
                 <label>First name <span class="required">*</span></label>
                 <input type="text" id="firstName" placeholder="John" required pattern="[a-zA-Z]{2,30}">
@@ -276,6 +288,7 @@
             </div>
             <br>
 
+            <!-- Comments -->
             <div class="input_container">
                 <label>Extra Comments</label>
                 <textarea id="comments" maxlength="500"></textarea>
@@ -286,6 +299,7 @@
             <br>
             <br>
 
+            <!-- declarations -->
             <label><input type="checkbox" id="_f1-declaration-termsConditions"> I have read and agree to the <a href="#">Terms and Conditions</a></label>
             <br>
             <label><input type="checkbox" id="_f1-declaration-age"> I am at least 25 years of age</label>
@@ -293,6 +307,7 @@
             <br>
             <br>
 
+            <!-- Submit button -->
             <button type="button" id="_f1-submit" disabled>Confirm Booking</button>
         </div>
 
@@ -303,10 +318,12 @@
 
             <button type="button" class="overlay-open">Veiw Details</button>
 
+            <!-- Count down display -->
             <p>This page will refresh in <span id="_f1-refreshCountDown">30</span> second<span id="_f1-refreshCountDown-s">s</span></p>
         </div>
 
         <div id="_f1-overlay" class="overlay">
+            <!-- booking summary table -->
             <div class="table_container">
                 <table>
                     <tr>
@@ -369,6 +386,7 @@
                 </table>
             </div>
             
+            <!-- close button. at bottom so displays on top -->
             <button type="button" id="_f1-overlay-close" class="close"><i class="fas fa-times"></i></button>
         </div>
 
@@ -378,10 +396,12 @@
         <div class="grid">
             <div class="container">
                 <div class="content">
+                    <!-- address -->
                     <p>2 Arthur Street Dunedin</p>
                 </div>
             </div><div class="container">
                 <div class="content">
+                    <!-- contacts -->
                     <p>03 4775277</p>
                     <p>rickeysrides@gmail.com</p>
                 </div>
@@ -394,9 +414,6 @@
     <!-- Scripts -->
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-        https://firebase.google.com/docs/web/setup#available-libraries -->
 
     <script>
         // Your web app's Firebase configuration
@@ -411,6 +428,7 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
     </script>
+    <!-- reservations script -->
     <script src="js/reservations/v3.js"></script>
 </body>
 </html>

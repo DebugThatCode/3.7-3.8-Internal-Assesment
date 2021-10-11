@@ -1,6 +1,9 @@
+
+/* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+/* Fonts and colour palette */
 :root {
     --title_text: 'Oswald', sans-serif;
     --body_text: 'Roboto', sans-serif;
@@ -16,6 +19,7 @@
     --text_alt_2: #FFFFFF;
 }
 
+/* body background */
 body {
     font-family: var(--body_text);
     background-image: url('../assets/images/bg-texture.jpg');
@@ -24,11 +28,13 @@ body {
     background-attachment: fixed;
 }
 
+/* header styling */
 h1, h2, h3, h4, h5, h6 {
     text-align: center;
     font-family: var(--title_text);
 }
 
+/* form part container styling */
 form div.part {
     width: 90%;
     margin: 30px auto;
@@ -57,6 +63,7 @@ form div.part {
     font-size: 10px;
 }
 
+/* for grid */
 #_f1-p1 .input_container._1 {
     width: 60%;
 }
@@ -64,6 +71,7 @@ form div.part {
     width: 40%;
 }
 
+/* inputs style */
 #_f1-p1 .input_container select, #_f1-p1 .input_container input {
     width: 100%;
     height: 35px;
@@ -83,6 +91,7 @@ form div.part {
     margin: 0;
 }
 
+/* the card */
 .cards .card {
     width: 100%;
     border-radius: 5px;
@@ -95,8 +104,11 @@ form div.part {
     background-color: #fff;
     margin: 5px 0;
     transition: ease-in-out all 0.25s;
+    cursor: pointer;
+    text-align: center;
 }
 
+/* Details text on right */
 .card .details, .card .image, .card .more_details {
     width: 50%;
     display: block;
@@ -106,6 +118,7 @@ form div.part {
     height: 250px;
 }
 
+/* image on left */
 .card .image {
     height: unset;
     max-height: 350px;
@@ -115,18 +128,21 @@ form div.part {
 .card .details {
     right: 0;
 }
+
 .card .details span {
     display: block;
     width: 100%;
     box-sizing: border-box;
 }
 
+/* car name */
 .card .details .name {
     padding: 10px 5px 5px;
     font-size: 24px;
     font-family: var(--title_text);
 }
 
+/* pricing */
 .card .details .pricing {
     position: absolute;
     bottom: 0;
@@ -149,7 +165,7 @@ form div.part {
     background-color: var(--bg_main);
     color: #FFFFFF;
 }
-
+/* different style when selected */
 .cards .card[data-selected=true] {
     /* keep expanded */
     box-shadow: 0 0 5px 0 var(--bg_alt_1);
@@ -158,18 +174,18 @@ form div.part {
     /* Collapse card */
     height: 50px;
 }
-
+/* hides image */
 .cards .card[data-selected=false] > .image {
     display: none;
 }
-
+/* changes layout of details */
 .cards .card[data-selected=false] > .details {
     top: 0;
     transform: none;
     width: 100%;
     height: 50px;
 }
-
+/* name on left */
 .cards .card[data-selected=false] > .details .name {
     width: 60%;
     display: block;
@@ -179,7 +195,7 @@ form div.part {
     left: 0;
     padding: 5px;
 }
-
+/* pricing on right */
 .cards .card[data-selected=false] > .details .pricing {
     width: 40%;
     display: block;
@@ -195,10 +211,11 @@ form div.part {
     margin-right: 0;
     margin-bottom: 0;
 }
-
+/* hide other details */
 .cards .card[data-selected=false] > .details span:not(.name, .pricing) {
     display: none;
 }
+/* show pricing on right */
 .cards .card[data-selected=false] > .details .pricing span {
     display: inline-block;
 }
@@ -213,6 +230,7 @@ form div.part {
     display: inline-block;
 }
 
+/* displays like a table */
 #_f1-p3 .container {
     width: fit-content;
     max-width: 100%;
@@ -222,7 +240,7 @@ form div.part {
 #_f1-p3 .input_container {
     text-align: left;
 }
-
+/* price span */
 #_f1-p3 .input_container span {
     margin-top: 20px;
     margin-left: 20px;
@@ -232,6 +250,7 @@ form div.part {
 
 /* Part 4 */
 
+/* displayed in a table like fashion centered */
 .mandatory_costs {
     width: fit-content;
     max-width: 100%;
@@ -262,6 +281,7 @@ form div.part {
     margin: auto 6px 3px;
 }
 
+/* required astrix styling */
 #_f1-p4 .input_container label span.required {
     float: right;
     color: red;
@@ -281,7 +301,7 @@ form div.part {
     resize: vertical;
 }
 
-
+/* inline message */
 #_f1-p4 .input_container .inline_validation {
     color: red;
     position: absolute;
@@ -324,9 +344,11 @@ form div.part {
     display: inline-block;
 }
 
+/* hides all parts but post submition */
 form:not(.complete) > div.part#_f1-postSubmition {
     display: none;
 }
+/* hides post submition when form is incomplete */
 form.complete > div.part:not(#_f1-postSubmition) {
     display: none;
 }
@@ -345,10 +367,10 @@ form .overlay {
     border-radius: 15px;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); /* centers on page */
     background-color: var(--bg_ac_1);
     color: var(--text_ac_1);
-    z-index: 99;
+    z-index: 99; /* Displays above everything */
     overflow: hidden;
 }
 
@@ -362,6 +384,7 @@ form .overlay .close {
     background: none;
 }
 
+/* Overlay open button displayed throughout form */
 .overlay-open {
     display: block;
     margin: 20px auto;
@@ -373,10 +396,12 @@ form .overlay .close {
     box-shadow: 2px 3px #a8a8a8;
     transition: all 0.09s ease;
 }
+/* Makes button look 3d */
 .overlay-open:active {
     box-shadow: 0px 0px #a8a8a8;
 }
 
+/* Styling of close button cross */
 form .overlay .close i {
     position: absolute;
     font-size: 30px;
@@ -389,29 +414,21 @@ form .overlay .close i {
 form .overlay .table_container {
     max-height: 100%;
     width: 100%;
-    /* overflow-y: hidden;
-    overflow-x: hidden; */
-    overflow-y: scroll;
+    overflow-y: scroll;/* Allows for scrolling if table to large */
     box-sizing: border-box;
 }
 
-@media only screen and (max-height: 900px) {
-    form .overlay .table_container {
-        overflow-y: scroll;
-    }
-}
-
+/* table style */
 form .overlay table {
     max-width: 100%;
     width: fit-content;
     max-height: 100%;
     box-sizing: border-box;
-    /* padding: 20px; */
     margin: 0 auto 0;
     border-collapse: collapse;
-    /* overflow: scroll; */
 }
 
+/* data style */
 form .overlay table tr td {
     padding: 10px 5px;
     border-top: 2px solid #ececee99;
@@ -419,6 +436,7 @@ form .overlay table tr td {
     
 }
 
+/* aligning of text in td's to be on oppest margins */
 form .overlay table tr td:nth-child(1) {
     text-align: left;
 }
@@ -426,6 +444,7 @@ form .overlay table tr td:nth-child(2) {
     text-align: right;
 }
 
+/* allows for invalid data to be highlighted in red */
 form .overlay span.invalid_entry {
     display: inline-block;
     padding: 2px 4px;
@@ -433,6 +452,8 @@ form .overlay span.invalid_entry {
     color: #fff;
 }
 
+
+/* Check box style */
 input[type=checkbox] {
     -webkit-appearance: none;
     -moz-appearance: none;
